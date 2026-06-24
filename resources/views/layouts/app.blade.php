@@ -21,52 +21,88 @@
 
         /* Navbar Styling */
         .navbar {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #d10000;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: white !important;
             display: flex;
             align-items: center;
             gap: 10px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
         }
 
         .navbar-brand i {
             font-size: 2rem;
         }
 
+        .nav-item {
+            margin: 0 !important;
+        }
+
         .nav-link {
-            color: rgba(255,255,255,0.9) !important;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
             color: white !important;
-            transform: translateY(-2px);
-        }
-
-        .btn-navbar {
-            background-color: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
+            padding: 1.5rem 1.5rem !important;
         }
 
-        .btn-navbar:hover {
-            background-color: white;
-            color: #dc3545;
+        .nav-link:hover, .nav-link.active {
+            color: rgba(255,255,255,0.8) !important;
+        }
+        
+        .dropdown-toggle::after {
+            display: none;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            border-radius: 0;
+            background-color: #bc0000;
+            padding: 0;
+            margin: 0;
+            min-width: 220px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-item {
+            color: white !important;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+            font-weight: 400;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #990000;
+        }
+
+        @media all and (min-width: 992px) {
+            .navbar .nav-item.dropdown:hover .dropdown-menu {
+                display: block;
+                margin-top: 0;
+            }
+            .navbar .nav-item.dropdown:hover > .nav-link {
+                background-color: #bc0000;
+                color: rgba(255,255,255,0.8) !important;
+            }
         }
 
         /* Main Content */
         main {
             min-height: 600px;
-            padding: 3rem 0;
         }
 
         /* Footer */
@@ -139,46 +175,44 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-lg">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <i class="fas fa-shield-alt"></i>
-                Paskibra Ganesha
+                <div style="line-height: 1.1;">
+                    <div style="font-size: 1.1rem; letter-spacing: 1px;">TRANSPARANSI</div>
+                    <div style="font-size: 0.8rem; font-weight: 400;">PASKIBRAKA</div>
+                </div>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fas fa-bars" style="color: white; font-size: 1.5rem;"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    @auth
-                        <li class="nav-item me-3">
-                            <span class="nav-link">
-                                <i class="fas fa-user-circle me-2"></i>{{ auth()->user()->nama_lengkap }}
-                            </span>
-                        </li>
-                        <li class="nav-item me-3">
-                            <span class="badge bg-light text-danger p-2">
-                                {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-navbar">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item me-2">
-                            <a href="{{ route('login') }}" class="nav-link">
-                                <i class="fas fa-sign-in-alt me-2"></i>Login
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="btn btn-navbar">
-                                <i class="fas fa-user-plus me-2"></i>Daftar
-                            </a>
-                        </li>
-                    @endauth
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a href="{{ url('/') }}" class="nav-link active">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tentang</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Sejarah</a></li>
+                            <li><a class="dropdown-item" href="#">Visi Misi</a></li>
+                            <li><a class="dropdown-item" href="#">Struktur Organisasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Berita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Jadwal</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ route('login') }}">Masuk</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('register') }}">Daftar</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -186,7 +220,9 @@
 
     <!-- Main Content -->
     <main>
-        <div class="container-lg">
+        @yield('hero')
+        
+        <div class="container-lg mt-4">
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="fas fa-check-circle me-2"></i>
