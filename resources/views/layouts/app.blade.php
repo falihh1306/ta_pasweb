@@ -107,11 +107,17 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: #ecf0f1;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 4rem 0 2rem 0;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #000;
         }
 
         /* Alerts */
@@ -176,10 +182,10 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-lg">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <i class="fas fa-shield-alt"></i>
+                <img src="https://ui-avatars.com/api/?name=PG&background=fff&color=d10000&rounded=true" alt="Logo" width="40" height="40" class="me-2 rounded-circle bg-white p-1">
                 <div style="line-height: 1.1;">
-                    <div style="font-size: 1.1rem; letter-spacing: 1px;">TRANSPARANSI</div>
-                    <div style="font-size: 0.8rem; font-weight: 400;">PASKIBRAKA</div>
+                    <div style="font-size: 1.1rem; letter-spacing: 1px; font-weight: bold;">BRAGAS</div>
+                    <div style="font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px;">SMA NEGERI 1 PONTIANAK</div>
                 </div>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -246,7 +252,37 @@
     <!-- Footer -->
     <footer>
         <div class="container-lg">
-            <p>&copy; 2026 Paskibra Ganesha. All rights reserved.</p>
+            <div class="row mb-4">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://ui-avatars.com/api/?name=PG&background=d10000&color=fff&rounded=true" alt="Logo" width="50" height="50" class="me-3 rounded-circle">
+                        <span class="footer-logo-text">PASKIBRA GANESHA</span>
+                    </div>
+                    <p class="text-muted" style="max-width: 250px;">Platform Resmi Informasi dan Seleksi Penerimaan Anggota Pasukan Pengibar Bendera</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h6 class="fw-bold mb-3 text-dark">Media Sosial</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-instagram me-2"></i>Instagram</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-tiktok me-2"></i>Tiktok</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-whatsapp me-2"></i>Whatsapp</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-bold mb-3 text-dark">Alamat</h6>
+                    <p class="text-muted">
+                        Jl. Gusti Johan Idrus,<br>
+                        Kelurahan Akcaya, Kecamatan<br>
+                        Pontianak Selatan, Kota Pontianak,<br>
+                        Kalimantan Barat
+                    </p>
+                </div>
+            </div>
+            <hr class="mb-4" style="border-color: #ccc;">
+            <div class="d-flex justify-content-between flex-wrap text-muted" style="font-size: 0.85rem;">
+                <div class="fw-bold text-dark">Paskibra SMA Negeri 1 Pontianak</div>
+                <div>&copy; 2026 Paskibra Ganesha. All rights reserved.</div>
+            </div>
         </div>
     </footer>
 
