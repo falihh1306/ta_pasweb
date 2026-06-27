@@ -180,7 +180,7 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-lg">
+        <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="https://ui-avatars.com/api/?name=PG&background=fff&color=d10000&rounded=true" alt="Logo" width="40" height="40" class="me-2 rounded-circle bg-white p-1">
                 <div style="line-height: 1.1;">
