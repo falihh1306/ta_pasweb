@@ -4,28 +4,28 @@
 
 @section("hero")
 <!-- Hero Section -->
-<section style="position: relative; min-height: 85vh; background-image: url('https://picsum.photos/id/1074/1920/1080'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; padding-top: 2rem;">
+<section style="position: relative; min-height: 85vh; background-image: url('https://picsum.photos/id/1074/1920/1080'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
     <!-- Overlay to make background lighter -->
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.75); z-index: 1;"></div>
     
-    <div class="container-lg position-relative" style="z-index: 2;">
-        <div class="row align-items-center mb-5">
-            <div class="col-md-5 text-center text-md-end mb-4 mb-md-0">
-                <img src="https://ui-avatars.com/api/?name=PG&background=000&color=fff&rounded=true&size=300" alt="Logo Paskibra" class="img-fluid rounded-circle shadow-lg" style="border: 8px solid #000; max-width: 250px;">
+    <div class="container-fluid px-4 px-lg-5 position-relative" style="z-index: 2;">
+        <div class="row align-items-center justify-content-center mb-5">
+            <div class="col-md-4 text-center text-md-end mb-4 mb-md-0 pe-md-4">
+                <img src="https://ui-avatars.com/api/?name=PG&background=000&color=fff&rounded=true&size=500" alt="Logo Paskibra" class="img-fluid rounded-circle shadow-lg" style="border: 8px solid #000; max-width: 350px;">
             </div>
-            <div class="col-md-7 text-center text-md-start">
-                <h6 class="fw-bold" style="color: #d10000; letter-spacing: 2px;">SISTEM INFORMASI SELEKSI PENERIMAAN ANGGOTA</h6>
-                <h1 class="fw-black mb-0" style="color: #d10000; font-size: 5rem; line-height: 0.9; font-family: 'Arial Black', Impact, sans-serif;">PASKIBRA<br>GANESHA</h1>
+            <div class="col-md-8 text-center text-md-start ps-md-2">
+                <h6 class="fw-bold mb-1" style="color: #d10000; letter-spacing: 1px; font-size: 1.30rem;">SISTEM INFORMASI SELEKSI PENERIMAAN ANGGOTA</h6>
+                <h1 class="fw-black mb-0" style="color: #d10000; font-size: 7.5rem; line-height: 0.82; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: -4px; text-transform:uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">PASKIBRA<br>GANESHA</h1>
             </div>
         </div>
         
         <!-- Floating Card -->
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card shadow-lg border-0" style="background-color: #d10000; color: white; border-radius: 1rem; transform: translateY(40%);">
-                    <div class="card-body text-center p-4 p-md-5">
-                        <h4 class="fw-bold mb-3">PASKIBRA SMA NEGERI 1 PONTIANAK</h4>
-                        <p class="mb-0" style="font-size: 1.05rem; line-height: 1.6;">
+        <div class="row justify-content-center mt-3">
+            <div class="col-xl-9 col-lg-10">
+                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #b30000 0%, #4a0000 100%); color: white; border-radius: 1.5rem; transform: translateY(10%);">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="fw-bold mb-3 text-center">PASKIBRA SMA NEGERI 1 PONTIANAK</h3>
+                        <p class="mb-0" style="font-size: 1.15rem; line-height: 1.6; text-align: justify;">
                             Selamat datang di Website Paskibra Ganesha SMA Negeri 1 Pontianak. Website ini hadir sebagai media informasi serta sistem informasi seleksi penerimaan anggota yang bertujuan untuk memudahkan calon anggota dalam memperoleh informasi, melakukan pendaftaran, dan mengikuti proses seleksi secara lebih efektif dan terstruktur.
                         </p>
                     </div>
@@ -38,17 +38,21 @@
 
 @section("content")
 <!-- Adjust top margin because of floating card -->
-<div style="margin-top: 10rem;"></div>
+<div style="margin-top: 5rem;"></div>
 
 <!-- Document Download Section -->
 <section class="py-5 mb-5">
+     <!-- Garis Merah -->
+    <div class="container mb-5">
+        <hr style=" border: 0; border-top: 2px solid #dc3545; opacity: 1; width: 100%; margin: 0 auto;">
+    </div>
     <div class="row justify-content-center text-center g-4">
         <!-- Doc 1 -->
         <div class="col-6 col-md-3">
             <div class="d-flex flex-column align-items-center">
                 <i class="far fa-file-pdf mb-3" style="font-size: 3rem; color: #dc3545;"></i>
                 <h6 class="fw-bold" style="font-size: 0.9rem; min-height: 40px;">Surat Izin Orang Tua</h6>
-                <div style="width: 80%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
+                <div style="width: 65%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
                 <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.85rem;">Download PDF</a>
             </div>
         </div>
@@ -57,7 +61,7 @@
             <div class="d-flex flex-column align-items-center">
                 <i class="far fa-file-pdf mb-3" style="font-size: 3rem; color: #dc3545;"></i>
                 <h6 class="fw-bold" style="font-size: 0.9rem; min-height: 40px;">Perpang TNI<br>No. 57 & 58</h6>
-                <div style="width: 80%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
+                <div style="width: 65%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
                 <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.85rem;">Download PDF</a>
             </div>
         </div>
@@ -66,7 +70,7 @@
             <div class="d-flex flex-column align-items-center">
                 <i class="far fa-file-pdf mb-3" style="font-size: 3rem; color: #dc3545;"></i>
                 <h6 class="fw-bold" style="font-size: 0.9rem; min-height: 40px;">Buku Teks Utama<br>Pancasila Kelas X</h6>
-                <div style="width: 80%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
+                <div style="width: 65%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
                 <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.85rem;">Download PDF</a>
             </div>
         </div>
@@ -75,7 +79,7 @@
             <div class="d-flex flex-column align-items-center">
                 <i class="far fa-file-pdf mb-3" style="font-size: 3rem; color: #dc3545;"></i>
                 <h6 class="fw-bold" style="font-size: 0.9rem; min-height: 40px;">Tabel Penilaian Fisik</h6>
-                <div style="width: 80%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
+                <div style="width: 65%; height: 2px; background-color: #dc3545; margin: 10px 0;"></div>
                 <a href="#" class="text-decoration-none fw-bold" style="color: #0d6efd; font-size: 0.85rem;">Download PDF</a>
             </div>
         </div>
@@ -85,7 +89,7 @@
 <!-- Sejarah Section -->
 <section class="py-5 mb-5">
     <div class="mb-4">
-        <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 1.2rem;">SEJARAH</span>
+        <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 1.9rem;">SEJARAH</span>
         <h2 class="fw-bold mb-0" style="color: #d10000;">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
     </div>
     <div class="row align-items-center">
