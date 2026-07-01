@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Beranda - Transparansi Paskibraka")
+@section("title", "Beranda - Paskibra Ganesha")
 
 @section("hero")
 <!-- Hero Section -->
@@ -88,26 +88,26 @@
 </section>
 
 <!-- Sejarah Section -->
-<section class="py-5 mb-5 mt-5">
-    <div class="container-fluid" style="background-color: #fffafb; padding: 3rem 0;">
-        <div class="container-lg">
-            <div class="mb-4">
-                <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 2rem;">SEJARAH</span>
-                <h2 class="fw-bold mb-0" style="color: #d10000;">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
-            </div>
-            <div class="row align-items-stretch g-4 mt-2">
-                <div class="col-md-7">
-                    <div class="h-100 p-4 p-lg-5 bg-white" style="border: 1px solid #f5c2c7; border-radius: 1rem;">
-                        <p class="mb-4" style="font-size: 1.5rem; line-height: 1.8; text-align: justify; color: #333;">
-                            Berawal dari keberhasilan Akhdan Wahyu, Dian Astiningsih, dan Nudi Wicaksono yang terpilih sebagai Paskibraka tingkat Provinsi dan Nasional pada tahun 1991-1992, muncul semangat untuk membentuk wadah pembinaan bagi generasi penerus di SMA Negeri 1 Pontianak. Berbekal pengalaman dan dedikasi mereka, <strong>lahirlah Paskibra SMA Negeri 1 Pontianak</strong> sebagai organisasi yang berkomitmen membina karakter, kedisiplinan, jiwa kepemimpinan, serta semangat nasionalisme bagi para siswa.
-                        </p>
-                        <a href="#" class="text-decoration-none fw-bold" style="color: #d10000; font-size: 1.1rem;">Lihat Selengkapnya <i class="fas fa-chevron-right ms-1" style="font-size: 0.9rem;"></i></a>
+<section class="mb-5 mt-5" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); background-color: #fffafb; padding: 4rem 0;">
+    <div class="container-fluid px-4 px-xl-5">
+        <div class="mb-4">
+            <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 2rem; letter-spacing: 1px;">SEJARAH</span>
+            <h2 class="fw-black mb-0" style="color: #d10000; font-size: 2.2rem; font-weight: 900; letter-spacing: 0.5px;">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
+        </div>
+        <div class="row align-items-stretch g-4 mt-1">
+            <div class="col-md-9">
+                <div class="h-100 p-5 p-lg-5 bg-white d-flex flex-column" style="border: 1px solid #d10000; border-radius: 0.8rem;">
+                    <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify; color: #000; margin-bottom: 2rem;">
+                        Berawal dari keberhasilan Akhdan Wahyu, Dian Astiningsih, dan Nudi Wicaksono yang terpilih sebagai Paskibraka tingkat Provinsi dan Nasional pada tahun 1991-1992, muncul semangat untuk membentuk wadah pembinaan bagi generasi penerus di SMA Negeri 1 Pontianak. Berbekal pengalaman dan dedikasi mereka, <strong>lahirlah Paskibra SMA Negeri 1 Pontianak</strong> sebagai organisasi yang berkomitmen membina karakter, kedisiplinan, jiwa kepemimpinan, serta semangat nasionalisme bagi para siswa.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="{{ route('sejarah') }}" class="text-decoration-none fw-bold" style="color: #d10000; font-size: 1.15rem;">Lihat Selengkapnya <i class="fas fa-chevron-right ms-2" style="font-size: 0.9rem;"></i></a>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="h-100 bg-white p-3" style="border: 1px solid #f5c2c7; border-radius: 1rem;">
-                        <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover" style="border-radius: 0.5rem;">
-                    </div>
+            </div>
+            <div class="col-md-3">
+                <div class="h-100 bg-white p-3" style="border: 1px solid #d10000; border-radius: 0.8rem;">
+                    <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover" style="border-radius: 0.5rem;">
                 </div>
             </div>
         </div>
