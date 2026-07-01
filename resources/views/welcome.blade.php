@@ -4,28 +4,29 @@
 
 @section("hero")
 <!-- Hero Section -->
-<section style="position: relative; min-height: 85vh; background-image: url('https://picsum.photos/id/1074/1920/1080'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
-    <!-- Overlay to make background lighter -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.75); z-index: 1;"></div>
+<section style="position: relative; min-height: 85vh; background-image: url('/images/fotoawal.png'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
+    <!-- Overlay to make background darker -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.4); z-index: 1;"></div>
     
-    <div class="container-fluid px-4 px-lg-5 position-relative" style="z-index: 2;">
-        <div class="row align-items-center justify-content-center mb-5">
-            <div class="col-md-4 text-center text-md-end mb-4 mb-md-0 pe-md-4">
-                <img src="https://ui-avatars.com/api/?name=PG&background=000&color=fff&rounded=true&size=500" alt="Logo Paskibra" class="img-fluid rounded-circle shadow-lg" style="border: 8px solid #000; max-width: 350px;">
-            </div>
-            <div class="col-md-8 text-center text-md-start ps-md-2">
-                <h6 class="fw-bold mb-1" style="color: #d10000; letter-spacing: 1px; font-size: 1.30rem;">SISTEM INFORMASI SELEKSI PENERIMAAN ANGGOTA</h6>
-                <h1 class="fw-black mb-0" style="color: #d10000; font-size: 7.5rem; line-height: 0.82; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: -4px; text-transform:uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">PASKIBRA<br>GANESHA</h1>
+    <div class="position-relative w-100 px-3" style="z-index:2;">
+        <div class="row align-items-center justify-content-center mb-5 mt-5 text-center">
+            <div class="col-12">
+                <h5 class="fw-bold mb-4 text-white" style="letter-spacing: 1px;">Sistem Informasi Seleksi Penerimaan Anggota</h5>
+                <h1 class="fw-black mb-4 text-white" style="font-size: clamp(2.2rem, 5vw, 6rem); line-height: 1; font-family: 'Arial Black', Impact, sans-serif; letter-spacing: 2px; text-shadow: 2px 4px 8px rgba(0,0,0,0.5);">PASKIBRA GANESHA</h1>
+                <h4 class="fw-bold text-white mt-3" style="font-size: 2.2rem; letter-spacing: 2px; text-shadow: 1px 2px 4px rgba(0,0,0,0.5);">SMA NEGERI 1 PONTIANAK</h4>
             </div>
         </div>
         
         <!-- Floating Card -->
-        <div class="row justify-content-center mt-3">
+        <div class="row justify-content-center mt-4">
             <div class="col-xl-9 col-lg-10">
-                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #b30000 0%, #4a0000 100%); color: white; border-radius: 1.5rem; transform: translateY(10%);">
-                    <div class="card-body p-4 p-md-5">
-                        <h3 class="fw-bold mb-3 text-center">PASKIBRA SMA NEGERI 1 PONTIANAK</h3>
-                        <p class="mb-0" style="font-size: 1.15rem; line-height: 1.6; text-align: justify;">
+                <div class="card shadow-lg border-0" style="background-color: #d10000; color: white; border-radius: 1rem; transform: translateY(25%);">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        <div class="d-inline-block mb-3">
+                            <h4 class="fw-bold mb-2">PASKIBRA SMA NEGERI 1 PONTIANAK</h4>
+                            <div style="height: 2px; background-color: white; width: 100%;"></div>
+                        </div>
+                        <p class="mb-0" style="font-size: 1.15rem; line-height: 1.6;">
                             Selamat datang di Website Paskibra Ganesha SMA Negeri 1 Pontianak. Website ini hadir sebagai media informasi serta sistem informasi seleksi penerimaan anggota yang bertujuan untuk memudahkan calon anggota dalam memperoleh informasi, melakukan pendaftaran, dan mengikuti proses seleksi secara lebih efektif dan terstruktur.
                         </p>
                     </div>
@@ -87,23 +88,27 @@
 </section>
 
 <!-- Sejarah Section -->
-<section class="py-5 mb-5">
-    <div class="mb-4">
-        <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 1.9rem;">SEJARAH</span>
-        <h2 class="fw-bold mb-0" style="color: #d10000;">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
-    </div>
-    <div class="row align-items-center">
-        <div class="col-md-7 mb-4 mb-md-0">
-            <div class="p-4" style="border-left: 3px solid #f8d7da; background-color: #fffafb;">
-                <p class="mb-4" style="font-size: 1.1rem; line-height: 1.8; text-align: justify;">
-                    Berawal dari keberhasilan Akhdan Wahyu, Dian Astiningsih, dan Nudi Wicaksono yang terpilih sebagai Paskibraka tingkat Provinsi dan Nasional pada tahun 1991-1992, muncul semangat untuk membentuk wadah pembinaan bagi generasi penerus di SMA Negeri 1 Pontianak. Berbekal pengalaman dan dedikasi mereka, <strong>lahirlah Paskibra SMA Negeri 1 Pontianak</strong> sebagai organisasi yang berkomitmen membina karakter, kedisiplinan, jiwa kepemimpinan, serta semangat nasionalisme bagi para siswa.
-                </p>
-                <a href="#" class="btn fw-bold" style="background-color: #d10000; color: white; border-radius: 0.5rem; padding: 0.6rem 1.5rem;">Lihat Selengkapnya <i class="fas fa-chevron-right ms-2" style="font-size: 0.8rem;"></i></a>
+<section class="py-5 mb-5 mt-5">
+    <div class="container-fluid" style="background-color: #fffafb; padding: 3rem 0;">
+        <div class="container-lg">
+            <div class="mb-4">
+                <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2" style="background-color: #d10000; font-size: 2rem;">SEJARAH</span>
+                <h2 class="fw-bold mb-0" style="color: #d10000;">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
             </div>
-        </div>
-        <div class="col-md-5 text-center">
-            <div class="position-relative d-inline-block" style="padding: 15px; border: 2px solid #e2a6a6; border-radius: 1rem;">
-                <img src="https://picsum.photos/id/1011/400/500" alt="Paskibra SMA N 1 Pontianak" class="img-fluid" style="border-radius: 0.5rem;">
+            <div class="row align-items-stretch g-4 mt-2">
+                <div class="col-md-7">
+                    <div class="h-100 p-4 p-lg-5 bg-white" style="border: 1px solid #f5c2c7; border-radius: 1rem;">
+                        <p class="mb-4" style="font-size: 1.5rem; line-height: 1.8; text-align: justify; color: #333;">
+                            Berawal dari keberhasilan Akhdan Wahyu, Dian Astiningsih, dan Nudi Wicaksono yang terpilih sebagai Paskibraka tingkat Provinsi dan Nasional pada tahun 1991-1992, muncul semangat untuk membentuk wadah pembinaan bagi generasi penerus di SMA Negeri 1 Pontianak. Berbekal pengalaman dan dedikasi mereka, <strong>lahirlah Paskibra SMA Negeri 1 Pontianak</strong> sebagai organisasi yang berkomitmen membina karakter, kedisiplinan, jiwa kepemimpinan, serta semangat nasionalisme bagi para siswa.
+                        </p>
+                        <a href="#" class="text-decoration-none fw-bold" style="color: #d10000; font-size: 1.1rem;">Lihat Selengkapnya <i class="fas fa-chevron-right ms-1" style="font-size: 0.9rem;"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="h-100 bg-white p-3" style="border: 1px solid #f5c2c7; border-radius: 1rem;">
+                        <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover" style="border-radius: 0.5rem;">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
