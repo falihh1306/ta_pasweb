@@ -21,15 +21,16 @@
 
         /* Navbar Styling */
         .navbar {
-            background-color: #d10000;
+            background-color: #ffffff;
             padding-top: 0;
             padding-bottom: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .navbar-brand {
             font-weight: 700;
             font-size: 1.2rem;
-            color: white !important;
+            color: #000 !important;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -46,17 +47,20 @@
         }
 
         .nav-link {
-            color: white !important;
-            font-weight: 500;
+            color: #000 !important;
+            font-weight: 700;
             font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
-            padding: 1.5rem 1.5rem !important;
+            padding: 1.5rem 1.2rem !important;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: rgba(255,255,255,0.8) !important;
+            color: #d10000 !important;
         }
         
         .dropdown-toggle::after {
@@ -65,20 +69,20 @@
         
         .dropdown-menu {
             border: none;
-            border-radius: 0;
-            background-color: #bc0000;
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: #ffffff;
             padding: 0;
             margin: 0;
-            min-width: 220px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-width: 200px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .dropdown-item {
-            color: white !important;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #333 !important;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             transition: all 0.2s ease;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         .dropdown-item:last-child {
@@ -86,7 +90,8 @@
         }
 
         .dropdown-item:hover {
-            background-color: #990000;
+            background-color: #f8f9fa;
+            color: #d10000 !important;
         }
 
         @media all and (min-width: 992px) {
@@ -95,8 +100,7 @@
                 margin-top: 0;
             }
             .navbar .nav-item.dropdown:hover > .nav-link {
-                background-color: #bc0000;
-                color: rgba(255,255,255,0.8) !important;
+                color: #d10000 !important;
             }
         }
 
@@ -182,14 +186,14 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="https://ui-avatars.com/api/?name=PG&background=fff&color=d10000&rounded=true" alt="Logo" width="40" height="40" class="me-2 rounded-circle bg-white p-1">
+                <img src="https://ui-avatars.com/api/?name=PG&background=000&color=fff&rounded=true" alt="Logo" width="45" height="45" class="me-2 rounded-circle" style="border: 2px solid #000;">
                 <div style="line-height: 1.1;">
-                    <div style="font-size: 1.1rem; letter-spacing: 1px; font-weight: bold;">BRAGAS</div>
-                    <div style="font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px;">SMA NEGERI 1 PONTIANAK</div>
+                    <div style="font-size: 1.25rem; letter-spacing: 1px; font-weight: 900; color: #000;">PASKIBRA GANESHA</div>
+                    <div style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; color: #333;">SMA NEGERI 1 PONTIANAK</div>
                 </div>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="fas fa-bars" style="color: white; font-size: 1.5rem;"></i>
+                <i class="fas fa-bars" style="color: #000; font-size: 1.5rem;"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
@@ -197,7 +201,7 @@
                         <a href="{{ url('/') }}" class="nav-link active">Beranda</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tentang</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tentang <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Sejarah</a></li>
                             <li><a class="dropdown-item" href="#">Visi Misi</a></li>
@@ -213,10 +217,12 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">Jadwal</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ route('login') }}">Masuk</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('register') }}">Daftar</a></li>
+                    <li class="nav-item dropdown ms-lg-3 my-2 my-lg-0 d-flex align-items-center">
+                        <a class="btn btn-danger fw-bold rounded-3" href="{{ route('login') }}" role="button" data-bs-toggle="dropdown" style="background-color: #d10000; border: none; padding: 0.6rem 1.2rem; display: inline-flex; align-items: center; gap: 8px;">
+                            MASUK <i class="fas fa-chevron-down" style="font-size: 0.7em;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="border-radius: 0.5rem; min-width: 150px;">
+                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('register') }}">Daftar</a></li>
                         </ul>
                     </li>
                 </ul>
