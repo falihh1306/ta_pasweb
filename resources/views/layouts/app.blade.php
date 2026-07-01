@@ -203,7 +203,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tentang <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Sejarah</a></li>
+                            <li><a class="dropdown-item" href="{{ route('sejarah') }}">Sejarah</a></li>
                             <li><a class="dropdown-item" href="#">Visi Misi</a></li>
                             <li><a class="dropdown-item" href="#">Struktur Organisasi</a></li>
                         </ul>
@@ -261,22 +261,22 @@
             <div class="row mb-4">
                 <div class="col-md-4 mb-4 mb-md-0">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="https://ui-avatars.com/api/?name=PG&background=d10000&color=fff&rounded=true" alt="Logo" width="50" height="50" class="me-3 rounded-circle">
-                        <span class="footer-logo-text">PASKIBRA GANESHA</span>
+                        <img src="https://ui-avatars.com/api/?name=PG&background=000&color=fff&rounded=true" alt="Logo" width="50" height="50" class="me-3 rounded-circle" style="border: 2px solid #000;">
+                        <span class="footer-logo-text fw-black" style="font-weight: 900;">PASKIBRA GANESHA</span>
                     </div>
-                    <p class="text-muted" style="max-width: 250px;">Platform Resmi Informasi dan Seleksi Penerimaan Anggota Pasukan Pengibar Bendera</p>
+                    <p style="color: #333; max-width: 280px; font-size: 0.95rem; line-height: 1.6;">Platform Resmi Informasi dan Seleksi Penerimaan Anggota Pasukan Pengibar Bendera</p>
                 </div>
                 <div class="col-md-4 mb-4 mb-md-0">
-                    <h6 class="fw-bold mb-3 text-dark">Media Sosial</h6>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-instagram me-2"></i>Instagram</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-tiktok me-2"></i>Tiktok</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none"><i class="fab fa-whatsapp me-2"></i>Whatsapp</a></li>
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 1.05rem;">Media Sosial</h6>
+                    <ul class="list-unstyled" style="color: #333; line-height: 1.8;">
+                        <li><a href="https://www.instagram.com/bragas_sman1ptk?igsh=MWwzbzNhdzhzOW5oeA==" class="text-decoration-none" style="color: #333;">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com/@paskibraganesha?_r=1&_t=ZS-97fPekDQ656" class="text-decoration-none" style="color: #333;">Tiktok</a></li>
+                        <li><a href="https://wa.me/6285753702222" class="text-decoration-none" style="color: #333;">Whatsapp</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h6 class="fw-bold mb-3 text-dark">Alamat</h6>
-                    <p class="text-muted">
+                    <h6 class="fw-bold mb-3 text-dark" style="font-size: 1.05rem;">Alamat</h6>
+                    <p style="color: #333; line-height: 1.6; max-width: 300px;">
                         Jl. Gusti Johan Idrus,<br>
                         Kelurahan Akcaya, Kecamatan<br>
                         Pontianak Selatan, Kota Pontianak,<br>
@@ -284,10 +284,10 @@
                     </p>
                 </div>
             </div>
-            <hr class="mb-4" style="border-color: #ccc;">
-            <div class="d-flex justify-content-between flex-wrap text-muted" style="font-size: 0.85rem;">
-                <div class="fw-bold text-dark">Paskibra SMA Negeri 1 Pontianak</div>
-                <div>&copy; 2026 Paskibra Ganesha. All rights reserved.</div>
+            <hr class="mb-3 mt-4" style="border-top: 1px solid #000; opacity: 1;">
+            <div style="font-size: 0.95rem; color: #333;">
+                <div class="fw-bold mb-1">Paskibra SMA Negeri 1 Pontianak</div>
+                <div style="color: #555;">&copy; 2026 Paskibra Ganesha. All rights reserved.</div>
             </div>
         </div>
     </footer>
