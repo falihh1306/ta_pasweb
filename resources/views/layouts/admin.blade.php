@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Dashboard - Paskibra Ganesha')</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Ionicons -->
@@ -26,20 +26,439 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css">
     <!-- Custom Style -->
     <style>
-        .brand-link {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        body {
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #f4f7fe;
+            color: #333;
         }
+        
+        .wrapper .content-wrapper {
+            background-color: #f4f7fe !important;
+        }
+        
+        .main-header {
+            border-bottom: none !important;
+            background-color: #f4f7fe !important;
+            padding: 0.5rem 0.5rem 0 0.5rem;
+        }
+
         .main-sidebar {
-            background-color: #2c3e50;
+            background-color: #ffffff !important;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.03) !important;
+            border-right: none !important;
         }
+        
+        .main-footer {
+            background-color: transparent !important;
+            border-top: none !important;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            padding: 1rem 1.5rem;
+        }
+        .main-footer a {
+            color: #6366f1;
+            font-weight: 500;
+        }
+
+        .brand-link {
+            background-color: #ffffff !important;
+            color: #111827 !important;
+            border-bottom: none !important;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 1.5rem 1rem !important;
+            gap: 15px;
+        }
+        
+        .brand-link .brand-image {
+            float: none;
+            margin-right: 10px;
+        }
+
+        .nav-sidebar .nav-item {
+            margin-bottom: 2px;
+            padding: 0;
+        }
+        
+        .nav-sidebar .nav-header {
+            color: #9ca3af !important;
+            font-size: 0.7rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 1rem 1.5rem 0.5rem !important;
+        }
+
+        .nav-sidebar .nav-link {
+            border-radius: 0 !important; /* No Pill */
+            padding: 0.75rem 1.5rem !important;
+            color: #9ca3af !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-sidebar .nav-link p, .nav-sidebar .nav-link i {
+            color: #9ca3af;
+        }
+
+        .nav-sidebar .nav-link:hover {
+            background-color: rgba(239, 68, 68, 0.03) !important;
+            color: #ef4444 !important;
+        }
+        .nav-sidebar .nav-link:hover i, .nav-sidebar .nav-link:hover p {
+            color: #ef4444 !important;
+        }
+
         .nav-sidebar .nav-link.active {
-            background-color: #dc3545;
-            border-left: 3px solid #fff;
+            background-color: rgba(239, 68, 68, 0.05) !important;
+            color: #ef4444 !important;
+            box-shadow: none !important;
+        }
+        
+        .nav-sidebar .nav-link.active::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background-color: #ef4444;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .nav-sidebar .nav-link.active i, .nav-sidebar .nav-link.active p {
+            color: #ef4444 !important;
+        }
+        
+        .user-panel {
+            border-bottom: none !important;
+            margin-bottom: 1rem;
+            padding-bottom: 0;
+        }
+        
+        .user-panel .info a {
+            color: #111827 !important;
+            font-weight: 600;
+        }
+
+        .user-panel .text-success {
+            color: #10b981 !important;
+        }
+        
+        /* Fix Collapsed Sidebar State and Disable Hover Expand */
+        .sidebar-collapse .nav-sidebar .nav-item,
+        .sidebar-is-opening .nav-sidebar .nav-item {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .sidebar-collapse .nav-sidebar .nav-link,
+        .sidebar-is-opening .nav-sidebar .nav-link {
+            padding: 0.75rem 0 !important;
+            justify-content: center !important;
+            width: 4.6rem !important;
+        }
+        .sidebar-collapse .nav-sidebar .nav-link i,
+        .sidebar-is-opening .nav-sidebar .nav-link i {
+            margin: 0 !important;
+        }
+        
+        /* Force disable expansion visually */
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover,
+        body.sidebar-mini.sidebar-is-opening .main-sidebar {
+            width: 4.6rem !important;
+        }
+        
+        body.sidebar-collapse .brand-text,
+        body.sidebar-collapse .nav-sidebar .nav-link p,
+        body.sidebar-collapse .nav-header,
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-text,
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link p,
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-header,
+        body.sidebar-is-opening .brand-text,
+        body.sidebar-is-opening .nav-sidebar .nav-link p,
+        body.sidebar-is-opening .nav-header {
+            display: none !important;
+            width: 0 !important;
+            opacity: 0 !important;
+        }
+        
+        /* Logo Centering */
+        .sidebar-collapse .brand-link,
+        .sidebar-is-opening .brand-link,
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-link {
+            padding: 1.5rem 0 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 4.6rem !important;
+            overflow: hidden !important;
+            gap: 0 !important;
+        }
+        .sidebar-collapse .brand-link > img,
+        .sidebar-is-opening .brand-link > img,
+        body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-link > img {
+            margin: 0 !important;
+            display: block !important;
+            max-height: 35px !important;
+        }
+        .sidebar-collapse .brand-logo-icon,
+        .sidebar-is-opening .brand-logo-icon {
+            margin-right: 0 !important;
+        }
+
+        /* Modern Card Overrides */
+        .card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            background: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-header {
+            border-bottom: none;
+            background-color: transparent;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #111827;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Red & White Gradient Cards */
+        .bg-gradient-red-1 {
+            background: linear-gradient(135deg, #f87171, #ef4444) !important;
+            color: white !important;
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.25) !important;
+        }
+        .bg-gradient-red-2 {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            color: white !important;
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.25) !important;
+        }
+        .bg-gradient-white {
+            background: #ffffff !important;
+            color: #111827 !important;
+            border: 1px solid rgba(239, 68, 68, 0.1) !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03) !important;
+        }
+        
+        .stat-card-gradient {
+            border-radius: 24px;
+            padding: 1.75rem 2rem;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .stat-card-gradient:hover { transform: translateY(-5px); }
+        
+        .stat-card-gradient .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-card-gradient .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+        }
+        .stat-card-gradient .label {
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .stat-card-gradient .icon-circle {
+            width: 65px;
+            height: 65px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .bg-gradient-red-1 .icon-circle { color: #ef4444; }
+        .bg-gradient-red-2 .icon-circle { color: #dc2626; }
+        .bg-gradient-white .icon-circle { 
+            background: rgba(239, 68, 68, 0.1); 
+            color: #ef4444; 
+            box-shadow: none;
+        }
+        .bg-gradient-white .label { color: #6b7280; }
+        
+        .badge-trend-up {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 0.2rem 0.5rem;
+            border-radius: 50rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        .badge-trend-up i { margin-right: 0.3rem; font-size: 0.75rem; }
+
+        /* Soft Buttons */
+        .btn-soft {
+            border: none;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px; /* rounded square instead of pill */
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        .btn-soft i { font-size: 1rem; }
+        .btn-soft-primary { background: rgba(239, 68, 68, 0.08); color: #ef4444; }
+        .btn-soft-primary:hover { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+
+        /* Timeline */
+        .timeline-modern {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .timeline-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .timeline-modern li {
+            position: relative;
+            margin-bottom: 1rem;
+            padding-left: 45px;
+        }
+        .timeline-modern li:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-modern li::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ef4444;
+            z-index: 1;
+        }
+        .timeline-modern .time {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .timeline-modern .desc {
+            display: block;
+            color: #111827;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Dark Mode Overrides */
+        body.dark-mode {
+            background-color: #454d55 !important;
+        }
+        body.dark-mode .card,
+        body.dark-mode .main-header,
+        body.dark-mode .main-sidebar,
+        body.dark-mode .brand-link {
+            background-color: #343a40 !important;
+            border-color: #4b545c !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode .bg-gradient-white {
+            background: #343a40 !important; /* Must use background to override linear-gradient */
+            border-color: #4b545c !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode .bg-gradient-white .icon-circle {
+            background-color: #4b545c !important;
+            color: #ef4444 !important;
+        }
+        body.dark-mode .content-wrapper {
+            background-color: #454d55 !important;
+        }
+        body.dark-mode h3, 
+        body.dark-mode h4,
+        body.dark-mode .card-title,
+        body.dark-mode .timeline-modern .desc,
+        body.dark-mode .bg-gradient-white .label {
+            color: #ffffff !important;
+        }
+        body.dark-mode .timeline-modern::before {
+            background: #4b545c !important;
+        }
+        body.dark-mode .btn-soft {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode .btn-soft-primary {
+            background: rgba(239, 68, 68, 0.15) !important;
+            color: #f87171 !important;
+        }
+        body.dark-mode .btn-light {
+            background: #4b545c !important;
+            border-color: #6c757d !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode .btn-light .text-muted {
+            color: #d1d5db !important;
+        }
+        body.dark-mode .timeline-modern .time {
+            color: #adb5bd !important;
+        }
+        body.dark-mode .dropdown-menu {
+            background-color: #343a40;
+            color: #ffffff;
+            border-color: #4b545c;
+        }
+        body.dark-mode .dropdown-item {
+            color: #ffffff;
+        }
+        body.dark-mode .dropdown-item:hover {
+            background-color: #4b545c;
         }
     </style>
     @yield('extra-css')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini sidebar-no-expand layout-fixed">
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -52,6 +471,12 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <!-- Theme Toggle -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button" onclick="toggleTheme(event)">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                         <i class="fas fa-user-circle"></i> {{ auth()->user()->nama_lengkap }}
@@ -76,38 +501,18 @@
         </nav>
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-danger elevation-0" style="border-right: none; box-shadow: none !important;">
             <!-- Brand Logo -->
-            <a href="{{ route('dashboard') }}" class="brand-link">
-                <img src="https://via.placeholder.com/32" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Paskibra</span>
+            <a href="{{ route('dashboard') }}" class="brand-link d-flex justify-content-center align-items-center">
+                <img src="{{ asset('images/sman1ptk-logo.png') }}" alt="SMAN 1 PTK" style="max-height: 45px; width: auto; object-fit: contain;">
+                <span class="brand-text">
+                    <img src="{{ asset('images/logo.png') }}" alt="BRAGAS" style="max-height: 45px; width: auto; object-fit: contain;">
+                </span>
             </a>
 
             <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="https://via.placeholder.com/160" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->nama_lengkap }}</a>
-                        <small class="text-success"><i class="fas fa-circle"></i> Online</small>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="text" placeholder="Cari..." aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="sidebar mt-3">
+                
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -119,33 +524,32 @@
                         </li>
 
                         @if(auth()->user()->role === 'admin')
-                            <li class="nav-header">ADMIN MENU</li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Kelola Pengguna</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('jadwal.index') }}" class="nav-link {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-calendar-alt"></i>
                                     <p>Jadwal Kegiatan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-newspaper"></i>
                                     <p>Berita & Informasi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('galeri.index') }}" class="nav-link {{ request()->routeIs('galeri.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-images"></i>
-                                    <p>Galeri</p>
+                                    <p>Galeri Foto</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('laporan.index') }}" class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-chart-bar"></i>
                                     <p>Laporan</p>
                                 </a>
@@ -153,15 +557,14 @@
                         @endif
 
                         @if(auth()->user()->role === 'pengurus')
-                            <li class="nav-header">PENGURUS MENU</li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('pendaftaran.index') }}" class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-list"></i>
                                     <p>Kelola Pendaftaran</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('seleksi.index') }}" class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-check-circle"></i>
                                     <p>Proses Seleksi</p>
                                 </a>
@@ -169,26 +572,27 @@
                         @endif
 
                         @if(auth()->user()->role === 'calon_anggota')
-                            <li class="nav-header">ANGGOTA MENU</li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('pendaftaran.index') }}" class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-file-alt"></i>
                                     <p>Form Pendaftaran</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('notifikasi.index') }}" class="nav-link {{ request()->routeIs('notifikasi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-bell"></i>
                                     <p>Notifikasi</p>
                                 </a>
                             </li>
                         @endif
 
-                        <li class="nav-header">UMUM</li>
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Kembali ke Beranda</p>
+                        <li class="nav-item mt-4">
+                            <form action="{{ route('logout') }}" method="POST" id="sidebar-logout-form" style="display: none;">
+                                @csrf
+                            </form>
+                            <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();">
+                                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+                                <p class="text-danger font-weight-bold">Keluar</p>
                             </a>
                         </li>
                     </ul>
@@ -198,16 +602,18 @@
 
         <!-- Content Wrapper -->
         <div class="content-wrapper">
-            <!-- Content Header -->
+            <!-- Content Header (Page header) -->
+            @hasSection('page-title')
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page-title', 'Dashboard')</h1>
+                            <h1 class="m-0 font-weight-bold" style="color: #111827;">@yield('page-title')</h1>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
             <!-- Main content -->
             <section class="content">
@@ -259,6 +665,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- summernote -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
+    
+    <script>
+        function toggleTheme(e) {
+            if(e) e.preventDefault();
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                if(icon) { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                if(icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            }
+        }
+        
+        $(window).on('load', function() {
+            // Set initial icon
+            const icon = document.getElementById('theme-icon');
+            if (localStorage.getItem('theme') === 'dark' && icon) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            // Force disable AdminLTE's hover expand feature
+            setTimeout(function() {
+                $('.main-sidebar').off('mouseenter mouseleave');
+                $('[data-widget="pushmenu"]').PushMenu('expandSidebarHover', false);
+            }, 500);
+        });
+    </script>
     @yield('extra-js')
 </body>
 </html>
