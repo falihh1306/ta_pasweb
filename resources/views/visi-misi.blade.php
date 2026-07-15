@@ -62,13 +62,17 @@
     <div class="red-pattern-bg" style="padding: 3.5rem 0;">
         <div class="container px-4 px-md-5 position-relative z-1" style="max-width: 1200px;">
             <div class="row align-items-center">
+                @if(isset($informasi['gambar_visi']))
                 <div class="col-md-4 text-center mb-4 mb-md-0">
-                    <img src="{{ asset('images/fotosejarah1.png') }}" alt="Visi Paskibra" style="width: 230px; height: 300px; object-fit: cover; border-radius: 50% / 50%; border: 12px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.25);">
+                    <img src="{{ asset($informasi['gambar_visi']) }}" alt="Visi Paskibra" style="width: 230px; height: 300px; object-fit: cover; border-radius: 50% / 50%; border: 12px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.25);">
                 </div>
                 <div class="col-md-8 ps-md-5">
+                @else
+                <div class="col-md-12 text-center text-md-start">
+                @endif
                     <h2 class="fw-bold mb-3" style="color: #ffffff; font-size: 3.2rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">VISI</h2>
                     <p style="font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.95); text-align: justify; margin-bottom: 0;">
-                        <strong>Mewujudkan Paskibra Ganesha sebagai wadah pembinaan</strong> yang meningkatkan kedisiplinan, berintegritas, saling mendukung, serta semakin berkembang dengan meningkatkan prestasi yang menjunjung tinggi nilai cinta tanah air.
+                        {!! nl2br(e($informasi['visi'] ?? 'Mewujudkan Paskibra Ganesha sebagai wadah pembinaan yang meningkatkan kedisiplinan, berintegritas, saling mendukung, serta semakin berkembang dengan meningkatkan prestasi yang menjunjung tinggi nilai cinta tanah air.')) !!}
                     </p>
                 </div>
             </div>
@@ -86,34 +90,19 @@
             </div>
             
             <div class="row justify-content-center g-4 mt-1">
-                <!-- Row 1: 3 cards -->
+                @php
+                    $defaultMisi = "Menjadikan Paskibra Ganesha sebagai organisasi yang semakin aktif dan berprestasi baik internal maupun eksternal sekolah.\nMemberikan ruang untuk anggota Paskibra Ganesha mengembangkan potensi diri baik secara fisik, mental, serta jiwa kepemimpinan.\nMenjaga nama baik Paskibra Ganesha dengan menunjukkan sikap sopan, disiplin dan bertanggung jawab.\nMengadakan sistem evaluasi berkala untuk melihat perkembangan serta kinerja anggota Paskibra Ganesha\nMembangun komunikasi dan hubungan yang baik antara anggota Paskibra Ganesha dengan sekolah, pembina serta pelatih dan organisasi lainnya.";
+                    $misiText = $informasi['misi'] ?? $defaultMisi;
+                    $misiArray = array_filter(array_map('trim', explode("\n", $misiText)));
+                @endphp
+
+                @foreach($misiArray as $misiItem)
                 <div class="col-md-4">
                     <div class="card h-100 p-4 border-0 misi-card">
-                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">Menjadikan Paskibra Ganesha sebagai organisasi yang semakin aktif dan berprestasi baik internal maupun eksternal sekolah.</p>
+                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">{{ $misiItem }}</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 border-0 misi-card">
-                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">Memberikan ruang untuk anggota Paskibra Ganesha mengembangkan potensi diri baik secara fisik, mental, serta jiwa kepemimpinan.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 border-0 misi-card">
-                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">Menjaga nama baik Paskibra Ganesha dengan menunjukkan sikap sopan, disiplin dan bertanggung jawab.</p>
-                    </div>
-                </div>
-                
-                <!-- Row 2: 2 cards -->
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 border-0 misi-card">
-                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">Mengadakan sistem evaluasi berkala untuk melihat perkembangan serta kinerja anggota Paskibra Ganesha</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 p-4 border-0 misi-card">
-                        <p class="mb-0 text-dark" style="font-size: 1.1rem; line-height: 1.7;">Membangun komunikasi dan hubungan yang baik antara anggota Paskibra Ganesha dengan sekolah, pembina serta pelatih dan organisasi lainnya.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

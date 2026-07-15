@@ -23,6 +23,9 @@
             overflow-x: hidden;
             width: 100%;
         }
+        body {
+            padding-top: 80px;
+        }
 
         /* Navbar Styling */
         .navbar {
@@ -214,7 +217,7 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg sticky-top py-1">
+    <nav class="navbar navbar-expand-lg fixed-top py-1">
         <div class="container-fluid px-4 px-lg-5">
             <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo Paskibra" width="40" height="40" class="me-2">

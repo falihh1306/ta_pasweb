@@ -239,9 +239,10 @@
                 </button>
                 
                 <div class="text-center mt-3">
-                    <p class="text-muted" style="font-size: 0.85rem;">
+                    <p class="text-muted mb-1" style="font-size: 0.85rem;">
                         Belum punya akun? <a href="{{ route('register') }}" class="text-danger fw-bold text-decoration-none">Daftar sekarang</a>
                     </p>
+                    <a href="{{ url('/') }}" class="text-secondary text-decoration-none fw" style="font-size: 0.85rem;"><i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda</a>
                 </div>
             </form>
             

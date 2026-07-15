@@ -78,9 +78,12 @@
     .org-photo {
         width: 100%;
         height: 100%;
+        aspect-ratio: 1/1;
         border-radius: 50%;
-        object-fit: cover;
+        object-fit: cover !important;
+        object-position: top center;
         background-color: #f8f9fa;
+        display: block;
     }
     .empty-photo {
         background-color: #f8f9fa;
@@ -127,6 +130,15 @@
     </div>
 
     <div class="container px-4 px-md-5" style="max-width: 1100px;">
+        @php
+            $informasi = \App\Models\Informasi::pluck('konten', 'jenis_info')->toArray();
+        @endphp
+
+        @if(isset($informasi['gambar_struktur']))
+            <div class="text-center mb-5">
+                <img src="{{ asset($informasi['gambar_struktur']) }}" alt="Struktur Organisasi" class="img-fluid" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
+        @else
         
         <!-- LEVEL 1: Pelindung & Pembina -->
         <div class="hierarchy-section">
@@ -135,19 +147,29 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <div class="org-photo empty-photo"><i class="fas fa-user-tie"></i></div>
+                            @if(isset($informasi['org_kepsek_foto']))
+                                <img src="{{ asset($informasi['org_kepsek_foto']) }}" class="org-photo" alt="Kepala Sekolah">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user-tie"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Kepala Sekolah</div>
-                        <div class="org-name">Belum Diisi</div>
+                        <div class="org-name">{{ $informasi['org_kepsek_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP: {{ $informasi['org_kepsek_nip'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <div class="org-photo empty-photo"><i class="fas fa-user-tie"></i></div>
+                            @if(isset($informasi['org_pembina_foto']))
+                                <img src="{{ asset($informasi['org_pembina_foto']) }}" class="org-photo" alt="Pembina Paskibra">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user-tie"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Pembina Paskibra</div>
-                        <div class="org-name">Belum Diisi</div>
+                        <div class="org-name">{{ $informasi['org_pembina_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP: {{ $informasi['org_pembina_nip'] ?? '-' }}</div>
                     </div>
                 </div>
             </div>
@@ -162,10 +184,15 @@
                 <div class="col-md-5 col-sm-8">
                     <div class="org-card card-ketua">
                         <div class="org-photo-wrapper">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Ketua Paskibra">
+                            @if(isset($informasi['org_ketua_foto']))
+                                <img src="{{ asset($informasi['org_ketua_foto']) }}" class="org-photo" alt="Ketua Paskibra">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Ketua Paskibra</div>
-                        <div class="org-name">Nama Anggota</div>
+                        <div class="org-name">{{ $informasi['org_ketua_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.85rem; color: #888;">Kelas: {{ $informasi['org_ketua_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
             </div>
@@ -175,37 +202,57 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Wakil Ketua">
+                            @if(isset($informasi['org_wakil_foto']))
+                                <img src="{{ asset($informasi['org_wakil_foto']) }}" class="org-photo" alt="Wakil Ketua">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Wakil Ketua</div>
-                        <div class="org-name">Nama Anggota</div>
+                        <div class="org-name">{{ $informasi['org_wakil_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.85rem; color: #888;">Kelas: {{ $informasi['org_wakil_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Komandan Angkatan">
+                            @if(isset($informasi['org_komandan_foto']))
+                                <img src="{{ asset($informasi['org_komandan_foto']) }}" class="org-photo" alt="Komandan Angkatan">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Komandan Angkatan</div>
-                        <div class="org-name">Nama Anggota</div>
+                        <div class="org-name">{{ $informasi['org_komandan_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.85rem; color: #888;">Kelas: {{ $informasi['org_komandan_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @if(isset($informasi['org_sekretaris_foto']))
+                                <img src="{{ asset($informasi['org_sekretaris_foto']) }}" class="org-photo" alt="Sekretaris">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Sekretaris</div>
-                        <div class="org-name">Belum Diisi</div>
+                        <div class="org-name">{{ $informasi['org_sekretaris_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.85rem; color: #888;">Kelas: {{ $informasi['org_sekretaris_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="org-card">
                         <div class="org-photo-wrapper">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Bendahara">
+                            @if(isset($informasi['org_bendahara_foto']))
+                                <img src="{{ asset($informasi['org_bendahara_foto']) }}" class="org-photo" alt="Bendahara">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-user"></i></div>
+                            @endif
                         </div>
                         <div class="org-role">Bendahara</div>
-                        <div class="org-name">Nama Anggota</div>
+                        <div class="org-name">{{ $informasi['org_bendahara_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.85rem; color: #888;">Kelas: {{ $informasi['org_bendahara_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
             </div>
@@ -218,46 +265,77 @@
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                     <div class="org-card" style="padding: 1.5rem 1rem;">
                         <div class="org-photo-wrapper" style="width: 90px; height: 90px;">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Koor Kesekretariatan">
+                            @if(isset($informasi['org_div_kesekretariatan_foto']))
+                                <img src="{{ asset($informasi['org_div_kesekretariatan_foto']) }}" class="org-photo" alt="Koor Kesekretariatan">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-users"></i></div>
+                            @endif
                         </div>
                         <div class="org-role" style="font-size: 0.95rem;">Kesekretariatan</div>
+                        <div class="org-name" style="font-size: 0.8rem;">{{ $informasi['org_div_kesekretariatan_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.75rem; color: #888;">Kelas: {{ $informasi['org_div_kesekretariatan_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                     <div class="org-card" style="padding: 1.5rem 1rem;">
                         <div class="org-photo-wrapper" style="width: 90px; height: 90px;">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Koor Acara">
+                            @if(isset($informasi['org_div_acara_foto']))
+                                <img src="{{ asset($informasi['org_div_acara_foto']) }}" class="org-photo" alt="Koor Acara">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-users"></i></div>
+                            @endif
                         </div>
                         <div class="org-role" style="font-size: 0.95rem;">Acara</div>
+                        <div class="org-name" style="font-size: 0.8rem;">{{ $informasi['org_div_acara_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.75rem; color: #888;">Kelas: {{ $informasi['org_div_acara_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                     <div class="org-card" style="padding: 1.5rem 1rem;">
                         <div class="org-photo-wrapper" style="width: 90px; height: 90px;">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Koor Humas">
+                            @if(isset($informasi['org_div_humas_foto']))
+                                <img src="{{ asset($informasi['org_div_humas_foto']) }}" class="org-photo" alt="Koor Humas">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-users"></i></div>
+                            @endif
                         </div>
                         <div class="org-role" style="font-size: 0.95rem;">Humas</div>
+                        <div class="org-name" style="font-size: 0.8rem;">{{ $informasi['org_div_humas_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.75rem; color: #888;">Kelas: {{ $informasi['org_div_humas_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                     <div class="org-card" style="padding: 1.5rem 1rem;">
                         <div class="org-photo-wrapper" style="width: 90px; height: 90px;">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Koor Upacara">
+                            @if(isset($informasi['org_div_upacara_foto']))
+                                <img src="{{ asset($informasi['org_div_upacara_foto']) }}" class="org-photo" alt="Koor Upacara">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-users"></i></div>
+                            @endif
                         </div>
                         <div class="org-role" style="font-size: 0.95rem;">Upacara</div>
+                        <div class="org-name" style="font-size: 0.8rem;">{{ $informasi['org_div_upacara_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.75rem; color: #888;">Kelas: {{ $informasi['org_div_upacara_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6">
                     <div class="org-card" style="padding: 1.5rem 1rem;">
                         <div class="org-photo-wrapper" style="width: 90px; height: 90px;">
-                            <img src="{{ asset('images/fotosejarah1.png') }}" class="org-photo" alt="Koor Latihan">
+                            @if(isset($informasi['org_div_latihan_foto']))
+                                <img src="{{ asset($informasi['org_div_latihan_foto']) }}" class="org-photo" alt="Koor Latihan">
+                            @else
+                                <div class="org-photo empty-photo"><i class="fas fa-users"></i></div>
+                            @endif
                         </div>
                         <div class="org-role" style="font-size: 0.95rem;">Latihan</div>
+                        <div class="org-name" style="font-size: 0.8rem;">{{ $informasi['org_div_latihan_nama'] ?? 'Belum Diisi' }}</div>
+                        <div class="org-kelas mt-1" style="font-size: 0.75rem; color: #888;">Kelas: {{ $informasi['org_div_latihan_kelas'] ?? '-' }}</div>
                     </div>
                 </div>
             </div>
         </div>
 
+        @endif
     </div>
 </div>
 @endsection

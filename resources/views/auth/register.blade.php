@@ -268,10 +268,11 @@
                     <i class="fas fa-user-plus me-2"></i> DAFTAR SEKARANG
                 </button>
                 
-                <div class="text-center mt-1">
-                    <p class="text-muted" style="font-size: 0.8rem;">
+                <div class="text-center mt-2">
+                    <p class="text-muted mb-1" style="font-size: 0.8rem;">
                         Sudah punya akun? <a href="{{ route('login') }}" class="text-danger fw-bold text-decoration-none">Masuk di sini</a>
                     </p>
+                    <a href="{{ url('/') }}" class="text-secondary text-decoration-none fw" style="font-size: 0.85rem;"><i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda</a>
                 </div>
             </form>
             
