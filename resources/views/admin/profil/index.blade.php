@@ -13,6 +13,15 @@
             
             <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if ($errors->any())
+                    <div class="alert alert-danger mx-4 mt-4 mb-0">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="card-body px-4 py-4">
 
                     <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Bagian Sejarah Paskibra SMA N 1</h5>

@@ -155,7 +155,7 @@
                         </div>
                         <div class="org-role">Kepala Sekolah</div>
                         <div class="org-name">{{ $informasi['org_kepsek_nama'] ?? 'Belum Diisi' }}</div>
-                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP: {{ $informasi['org_kepsek_nip'] ?? '-' }}</div>
+                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP. {{ $informasi['org_kepsek_nip'] ?? '-' }}</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
@@ -169,7 +169,7 @@
                         </div>
                         <div class="org-role">Pembina Paskibra</div>
                         <div class="org-name">{{ $informasi['org_pembina_nama'] ?? 'Belum Diisi' }}</div>
-                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP: {{ $informasi['org_pembina_nip'] ?? '-' }}</div>
+                        <div class="org-nip mt-1" style="font-size: 0.85rem; color: #888;">NIP. {{ $informasi['org_pembina_nip'] ?? '-' }}</div>
                     </div>
                 </div>
             </div>
