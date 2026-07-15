@@ -44,7 +44,7 @@ Route::get('/berita/{slug}', [BeritaController::class, 'publicShow'])->name('ber
 
 Route::get('/jadwal', [JadwalController::class, 'publicIndex'])->name('jadwal');
 Route::get('/galeri', [GaleriController::class, 'publicIndex'])->name('galeri');
-Route::get('/galeri/{judul}', [GaleriController::class, 'publicShow'])->name('galeri.show');
+Route::get('/galeri/{judul}', [GaleriController::class, 'publicShow'])->name('galeri.show')->where('judul', '.*');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])
@@ -84,9 +84,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::resource('users', UserController::class)->except(['create', 'edit', 'show']);
         Route::resource('berita', BeritaController::class);
         Route::resource('jadwal', JadwalController::class)->except(['create', 'show', 'edit']);
-        Route::get('galeri/album/{judul}', [GaleriController::class, 'adminShow'])->name('galeri.album.show');
-        Route::put('galeri/album/{judul}', [GaleriController::class, 'updateAlbum'])->name('galeri.album.update');
-        Route::delete('galeri/album/{judul}', [GaleriController::class, 'destroyAlbum'])->name('galeri.album.destroy');
+        Route::get('galeri/album/{judul}', [GaleriController::class, 'adminShow'])->name('galeri.album.show')->where('judul', '.*');
+        Route::put('galeri/album/{judul}', [GaleriController::class, 'updateAlbum'])->name('galeri.album.update')->where('judul', '.*');
+        Route::delete('galeri/album/{judul}', [GaleriController::class, 'destroyAlbum'])->name('galeri.album.destroy')->where('judul', '.*');
         Route::resource('galeri', GaleriController::class)->except(['create', 'show', 'edit', 'update']);
         Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
         

@@ -40,8 +40,14 @@ class ProfilController extends Controller
             }
         }
 
+        $messages = [
+            'image' => 'File yang diunggah harus berupa gambar.',
+            'mimes' => 'Format gambar harus berupa jpeg, png, jpg, atau gif.',
+            'max' => 'Ukuran gambar tidak boleh melebihi 10MB.'
+        ];
+
         if ($request->hasFile('gambar_visi')) {
-            $request->validate(['gambar_visi' => 'image|mimes:jpeg,png,jpg,gif|max:10240']);
+            $request->validate(['gambar_visi' => 'image|mimes:jpeg,png,jpg,gif|max:10240'], $messages);
             $file = $request->file('gambar_visi');
             $filename = time() . '_visi.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/profil'), $filename);
@@ -49,7 +55,7 @@ class ProfilController extends Controller
         }
 
         if ($request->hasFile('gambar_sejarah')) {
-            $request->validate(['gambar_sejarah' => 'image|mimes:jpeg,png,jpg,gif|max:10240']);
+            $request->validate(['gambar_sejarah' => 'image|mimes:jpeg,png,jpg,gif|max:10240'], $messages);
             $file = $request->file('gambar_sejarah');
             $filename = time() . '_sejarah.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/profil'), $filename);
@@ -64,7 +70,7 @@ class ProfilController extends Controller
         foreach ($org_roles as $role) {
             $foto_field = $role . '_foto';
             if ($request->hasFile($foto_field)) {
-                $request->validate([$foto_field => 'image|mimes:jpeg,png,jpg,gif|max:10240']);
+                $request->validate([$foto_field => 'image|mimes:jpeg,png,jpg,gif|max:10240'], $messages);
                 $file = $request->file($foto_field);
                 $filename = time() . "_{$role}." . $file->getClientOriginalExtension();
                 $file->move(public_path('uploads/profil'), $filename);
