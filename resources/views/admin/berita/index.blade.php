@@ -1,158 +1,113 @@
 @extends('layouts.admin')
 
-@section('title', 'Berita & Informasi')
-
-@section('extra-css')
-<style>
-    .table-custom {
-        border-collapse: separate;
-        border-spacing: 0 0.5rem;
-    }
-    .table-custom tr {
-        background-color: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        border-radius: 0.5rem;
-        transition: transform 0.2s;
-    }
-    .table-custom tr:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .table-custom td, .table-custom th {
-        border: none;
-        padding: 1rem 1.2rem;
-        vertical-align: middle;
-    }
-    .table-custom th {
-        background: transparent;
-        font-weight: 600;
-        color: #6b7280;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    .table-custom td:first-child, .table-custom th:first-child {
-        border-top-left-radius: 0.5rem;
-        border-bottom-left-radius: 0.5rem;
-    }
-    .table-custom td:last-child, .table-custom th:last-child {
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-    }
-    .badge-status {
-        padding: 0.4rem 0.8rem;
-        border-radius: 50rem;
-        font-weight: 600;
-        font-size: 0.75rem;
-    }
-    .badge-diterbitkan { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-    .badge-draf { background: rgba(107, 114, 128, 0.1); color: #6b7280; }
-    
-    .thumbnail-img {
-        width: 60px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 0.25rem;
-    }
-    .thumbnail-placeholder {
-        width: 60px;
-        height: 40px;
-        background: #f3f4f6;
-        border-radius: 0.25rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #9ca3af;
-    }
-
-    body.dark-mode .table-custom tr {
-        background-color: #1f2937;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    body.dark-mode .table-custom th {
-        color: #9ca3af;
-    }
-    body.dark-mode .table-custom td {
-        color: #e5e7eb;
-    }
-    body.dark-mode .thumbnail-placeholder {
-        background: #374151;
-        color: #6b7280;
-    }
-</style>
-@endsection
+@section('title', 'Kelola Berita & Informasi - Paskibra')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+<div class="mb-4 mt-2 d-flex justify-content-between align-items-center">
     <div>
-        <h3 class="font-weight-bold" style="letter-spacing: -0.5px; margin-bottom: 0.2rem;">Berita & Informasi</h3>
-        <p class="text-muted mb-0" style="font-size: 0.95rem;">Kelola pengumuman, berita, dan kegiatan paskibra.</p>
+        <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Berita & Informasi</h3>
+        <p class="text-muted" style="font-size: 0.95rem;">Kelola pengumuman, berita, dan informasi kegiatan.</p>
     </div>
-    <div>
-        <a href="{{ route('berita.create') }}" class="btn px-4 py-2" style="background-color: #ef4444; color: white; border-radius: 50rem; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); font-weight: 600;">
-            <i class="fas fa-plus mr-2"></i> Tulis Berita
-        </a>
+    <a href="{{ route('berita.create') }}" class="btn btn-primary shadow-sm px-4" style="border-radius: 10px; font-weight: 600;">
+        <i class="fas fa-plus mr-2"></i> Tulis Berita
+    </a>
+</div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+        <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+<div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem; overflow: hidden;">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="border-top-0 border-bottom-0 text-muted px-4" style="font-size: 0.85rem; font-weight: 600; width: 5%;">NO</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 35%;">JUDUL BERITA</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 15%;">KATEGORI</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 15%;">STATUS</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 15%;">TANGGAL</th>
+                        <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600; width: 15%;">AKSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($beritas as $index => $berita)
+                    <tr>
+                        <td class="px-4 text-muted font-weight-bold">{{ $beritas->firstItem() + $index }}</td>
+                        <td>
+                            <div class="d-flex align-items-center py-2">
+                                @if($berita->gambar_sampul)
+                                    <img src="{{ asset('storage/' . $berita->gambar_sampul) }}" alt="Sampul" class="rounded mr-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                @else
+                                    <div class="rounded mr-3 bg-light d-flex align-items-center justify-content-center text-muted" style="width: 50px; height: 50px;">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                @endif
+                                <div>
+                                    <h6 class="mb-0 font-weight-bold text-dark">{{ Str::limit($berita->judul, 50) }}</h6>
+                                    <small class="text-muted"><a href="{{ route('berita.show', $berita->slug) }}" target="_blank" class="text-muted"><i class="fas fa-external-link-alt mr-1"></i>Lihat Publik</a></small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-light text-primary border" style="font-weight: 500; px-3 py-2">{{ $berita->kategori }}</span>
+                        </td>
+                        <td>
+                            @if($berita->status == 'diterbitkan')
+                                <span class="badge badge-pill badge-success-soft text-success px-3 py-2" style="background-color: #d1fae5; font-weight: 600;"><i class="fas fa-check-circle mr-1"></i> Diterbitkan</span>
+                            @else
+                                <span class="badge badge-pill badge-warning-soft text-warning px-3 py-2" style="background-color: #fef3c7; font-weight: 600;"><i class="fas fa-edit mr-1"></i> Draf</span>
+                            @endif
+                        </td>
+                        <td class="text-muted" style="font-size: 0.9rem;">
+                            {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d M Y') }}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-sm btn-light text-primary mr-1" data-toggle="tooltip" title="Edit" style="border-radius: 8px;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('berita.destroy', $berita->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-light text-danger" data-toggle="tooltip" title="Hapus" style="border-radius: 8px;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <div class="text-muted mb-3"><i class="far fa-newspaper fa-3x" style="opacity: 0.4;"></i></div>
+                            <h6 class="font-weight-bold text-dark">Belum ada berita</h6>
+                            <p class="text-muted mb-3">Mulai publikasikan informasi, berita, atau pengumuman pertama Anda.</p>
+                            <a href="{{ route('berita.create') }}" class="btn btn-sm btn-primary px-4" style="border-radius: 8px;"><i class="fas fa-plus mr-2"></i>Tulis Berita</a>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-custom">
-        <thead>
-            <tr>
-                <th>Sampul</th>
-                <th>Judul & Kategori</th>
-                <th>Status</th>
-                <th>Tanggal</th>
-                <th class="text-right">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($beritas as $berita)
-            <tr>
-                <td>
-                    @if($berita->gambar_sampul)
-                        <img src="{{ asset('storage/' . $berita->gambar_sampul) }}" alt="Sampul" class="thumbnail-img">
-                    @else
-                        <div class="thumbnail-placeholder">
-                            <i class="fas fa-image"></i>
-                        </div>
-                    @endif
-                </td>
-                <td>
-                    <span class="d-block font-weight-bold">{{ Str::limit($berita->judul, 40) }}</span>
-                    <span class="text-muted" style="font-size: 0.85rem;"><i class="fas fa-tag mr-1"></i> {{ $berita->kategori }}</span>
-                </td>
-                <td>
-                    @if($berita->status === 'diterbitkan')
-                        <span class="badge-status badge-diterbitkan">Diterbitkan</span>
-                    @else
-                        <span class="badge-status badge-draf">Draf</span>
-                    @endif
-                </td>
-                <td><span class="text-muted">{{ $berita->created_at->format('d M Y') }}</span></td>
-                <td class="text-right">
-                    <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-sm btn-soft btn-soft-primary mr-1">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                    <form action="{{ route('berita.destroy', $berita->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-soft" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="5" class="text-center py-4 text-muted">Belum ada berita yang ditulis.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+@if($beritas->hasPages())
+    <div class="d-flex justify-content-center">
+        {{ $beritas->links() }}
+    </div>
+@endif
 
-<div class="d-flex justify-content-center mt-4">
-    {{ $beritas->links() }}
-</div>
+@push('scripts')
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+@endpush
 @endsection

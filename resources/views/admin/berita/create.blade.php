@@ -1,164 +1,111 @@
 @extends('layouts.admin')
 
-@section('title', 'Tulis Berita')
-
-@section('extra-css')
-<style>
-    .card-custom {
-        border-radius: 1rem;
-        border: none;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    .form-control-custom {
-        border-radius: 0.5rem;
-        border: 1px solid #d1d5db;
-        padding: 0.75rem 1rem;
-    }
-    .form-control-custom:focus {
-        border-color: #ef4444;
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-    }
-    .note-editor.note-frame {
-        border-radius: 0.5rem;
-        border-color: #d1d5db;
-    }
-    
-    body.dark-mode .card-custom {
-        background-color: #1f2937;
-    }
-    body.dark-mode .form-control-custom {
-        background-color: #374151;
-        border-color: #4b5563;
-        color: #f9fafb;
-    }
-    body.dark-mode .form-control-custom:focus {
-        border-color: #ef4444;
-    }
-    body.dark-mode .note-editor.note-frame {
-        border-color: #4b5563;
-    }
-    body.dark-mode .note-editor .note-toolbar {
-        background-color: #374151;
-        border-bottom-color: #4b5563;
-    }
-    body.dark-mode .note-editor .note-editing-area .note-editable {
-        background-color: #1f2937;
-        color: #f9fafb;
-    }
-</style>
-@endsection
+@section('title', 'Tulis Berita Baru - Paskibra')
 
 @section('content')
-<div class="d-flex align-items-center mb-4 mt-2">
-    <a href="{{ route('berita.index') }}" class="btn btn-light mr-3" style="border-radius: 50rem; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;">
-        <i class="fas fa-arrow-left"></i>
-    </a>
+<div class="mb-4 mt-2 d-flex justify-content-between align-items-center">
     <div>
-        <h3 class="font-weight-bold" style="letter-spacing: -0.5px; margin-bottom: 0;">Tulis Berita Baru</h3>
+        <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Tulis Berita Baru</h3>
+        <p class="text-muted" style="font-size: 0.95rem;">Tambahkan informasi atau pengumuman terbaru.</p>
     </div>
+    <a href="{{ route('berita.index') }}" class="btn btn-light shadow-sm px-4 text-dark" style="border-radius: 10px; font-weight: 600;">
+        <i class="fas fa-arrow-left mr-2"></i> Kembali
+    </a>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card card-custom">
-            <div class="card-body p-4">
-                <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">Judul Berita <span class="text-danger">*</span></label>
-                                <input type="text" name="judul" class="form-control form-control-custom" placeholder="Masukkan judul yang menarik..." required value="{{ old('judul') }}">
-                                @error('judul') <small class="text-danger">{{ $message }}</small> @enderror
-                            </div>
-                            
-                            <div class="form-group mb-4">
-                                <label class="font-weight-bold">Isi Konten <span class="text-danger">*</span></label>
-                                <textarea name="isi" id="summernote" required>{{ old('isi') }}</textarea>
-                                @error('isi') <small class="text-danger">{{ $message }}</small> @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="card bg-light" style="border-radius: 0.75rem; border: none;">
-                                <div class="card-body">
-                                    <h6 class="font-weight-bold mb-3"><i class="fas fa-cog mr-2"></i> Pengaturan Publikasi</h6>
-                                    
-                                    <div class="form-group">
-                                        <label>Kategori</label>
-                                        <select name="kategori" class="form-control form-control-custom">
-                                            <option value="Pengumuman" {{ old('kategori') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                                            <option value="Kegiatan" {{ old('kategori') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
-                                            <option value="Prestasi" {{ old('kategori') == 'Prestasi' ? 'selected' : '' }}>Prestasi</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <select name="status" class="form-control form-control-custom">
-                                            <option value="diterbitkan" {{ old('status') == 'diterbitkan' ? 'selected' : '' }}>Langsung Terbitkan</option>
-                                            <option value="draf" {{ old('status') == 'draf' ? 'selected' : '' }}>Simpan sebagai Draf</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group mt-4">
-                                        <label>Foto Sampul (Opsional)</label>
-                                        <div class="custom-file mb-3">
-                                            <input type="file" class="custom-file-input" id="customFile" name="gambar_sampul" accept="image/*">
-                                            <label class="custom-file-label" for="customFile" style="border-radius: 0.5rem;">Pilih foto...</label>
-                                        </div>
-                                        @error('gambar_sampul') <small class="text-danger d-block mt-1">{{ $message }}</small> @enderror
-                                        
-                                        <img id="preview-img" src="#" alt="Preview" style="display: none; width: 100%; border-radius: 0.5rem; margin-top: 10px;">
-                                    </div>
-                                    
-                                    <hr class="my-4">
-                                    
-                                    <button type="submit" class="btn btn-block py-2" style="background-color: #ef4444; color: white; border-radius: 0.5rem; font-weight: 600;">
-                                        <i class="fas fa-save mr-2"></i> Simpan Berita
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+        <i class="fas fa-exclamation-triangle mr-2"></i> <strong>Gagal menyimpan!</strong> Periksa kembali isian Anda.
+        <ul class="mb-0 mt-1 pl-4">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+<form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+        <!-- Main Content Column -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem;">
+                <div class="card-body p-4">
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold text-dark">Judul Berita <span class="text-danger">*</span></label>
+                        <input type="text" name="judul" class="form-control form-control-lg text-dark" value="{{ old('judul') }}" required placeholder="Masukkan judul berita yang menarik" style="border-radius: 0.5rem; font-size: 1.1rem;">
                     </div>
-                </form>
+                    
+                    <div class="form-group mb-0">
+                        <label class="font-weight-bold text-dark">Isi Berita <span class="text-danger">*</span></label>
+                        <textarea name="isi" class="form-control text-dark" rows="15" required placeholder="Tuliskan isi berita atau pengumuman di sini..." style="border-radius: 0.5rem;">{{ old('isi') }}</textarea>
+                        <small class="form-text text-muted mt-2"><i class="fas fa-info-circle mr-1"></i> Mendukung penggunaan baris baru (Enter).</small>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        <!-- Sidebar Column -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem;">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h6 class="font-weight-bold text-dark mb-0">Pengaturan Publikasi</h6>
+                </div>
+                <div class="card-body p-4">
+                    <div class="form-group mb-4">
+                        <label class="font-weight-600 text-muted small text-uppercase">Kategori <span class="text-danger">*</span></label>
+                        <select name="kategori" class="form-control" required style="border-radius: 0.5rem;">
+                            <option value="Pengumuman" {{ old('kategori') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                            <option value="Kegiatan" {{ old('kategori') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
+                            <option value="Prestasi" {{ old('kategori') == 'Prestasi' ? 'selected' : '' }}>Prestasi</option>
+                            <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="font-weight-600 text-muted small text-uppercase">Status <span class="text-danger">*</span></label>
+                        <select name="status" class="form-control" required style="border-radius: 0.5rem;">
+                            <option value="diterbitkan" {{ old('status') == 'diterbitkan' ? 'selected' : '' }}>Diterbitkan (Publik)</option>
+                            <option value="draf" {{ old('status') == 'draf' ? 'selected' : '' }}>Draf (Sembunyikan)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem;">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h6 class="font-weight-bold text-dark mb-0">Gambar Sampul</h6>
+                </div>
+                <div class="card-body p-4">
+                    <div class="form-group mb-0">
+                        <div class="custom-file">
+                            <input type="file" name="gambar_sampul" class="custom-file-input" id="gambar_sampul" accept="image/jpeg,image/png,image/jpg,image/gif">
+                            <label class="custom-file-label" for="gambar_sampul" style="border-radius: 0.5rem;">Pilih gambar...</label>
+                        </div>
+                        <small class="form-text text-muted mt-2">
+                            Format: JPG, JPEG, PNG. Maks: 2 MB. <br> Boleh dikosongkan.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block shadow-sm py-3" style="border-radius: 0.5rem; font-weight: 600; font-size: 1.05rem;">
+                <i class="fas fa-save mr-2"></i> Simpan Berita
+            </button>
+        </div>
     </div>
-</div>
-@endsection
+</form>
 
-@section('extra-js')
+@push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
-            height: 400,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-
-        // Show filename in custom file input
-        $(".custom-file-input").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            
-            // Image preview
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#preview-img').attr('src', e.target.result).show();
-                }
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+    // Menampilkan nama file di custom-file-input
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 </script>
+@endpush
 @endsection

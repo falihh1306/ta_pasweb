@@ -1,102 +1,92 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Nilai - Paskibra Ganesha')
+@section('title', 'Input Nilai Seleksi - Paskibra')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+<div class="mb-4 mt-2 d-flex justify-content-between align-items-center">
     <div>
-        <a href="{{ route('seleksi.index') }}" class="text-muted text-decoration-none mb-2 d-inline-block"><i class="fas fa-arrow-left mr-1"></i> Kembali ke Daftar Seleksi</a>
-        <h3 class="font-weight-bold text-dark mb-0">Kelola Nilai: {{ $pendaftaran->nama_panggilan }}</h3>
+        <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Input Nilai Seleksi</h3>
+        <p class="text-muted" style="font-size: 0.95rem;">Peserta: <strong>{{ strtoupper($pendaftaran->user->nama_lengkap ?? $pendaftaran->nama_panggilan) }}</strong></p>
     </div>
+    <a href="{{ route('seleksi.index') }}" class="btn btn-light shadow-sm" style="border-radius: 10px; font-weight: 600;">
+        <i class="fas fa-arrow-left mr-2"></i> Kembali
+    </a>
 </div>
 
 <div class="row">
-    <!-- Form Input Nilai Baru -->
-    <div class="col-md-4 mb-4">
+    <!-- Formulir Input Nilai -->
+    <div class="col-lg-5 col-md-12 mb-4">
         <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
             <div class="card-header bg-white border-bottom pt-4 pb-3">
-                <h5 class="font-weight-bold m-0 text-dark"><i class="fas fa-plus-circle text-primary mr-2"></i> Tambah Nilai Tes</h5>
+                <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">FORM INPUT NILAI</h6>
             </div>
-            <div class="card-body p-4">
+            <div class="card-body">
                 <form action="{{ route('seleksi.store', $pendaftaran->id) }}" method="POST">
                     @csrf
-                    
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold text-muted small">Jenis Seleksi / Tes</label>
-                        <input type="text" name="jenis_seleksi" class="form-control" list="jenisTesList" required placeholder="Cth: Tes Fisik">
-                        <datalist id="jenisTesList">
-                            <option value="Tes Pengetahuan Umum (Tulis)"></option>
-                            <option value="Tes Kesamaptaan / Fisik"></option>
-                            <option value="Tes Peraturan Baris Berbaris (PBB)"></option>
-                            <option value="Tes Wawancara / Mental Ideologi"></option>
-                            <option value="Tes Keterampilan / Minat Bakat"></option>
-                        </datalist>
+                    <div class="form-group">
+                        <label class="font-weight-600 text-muted small text-uppercase">Jenis Seleksi (Kriteria)</label>
+                        <select name="jenis_seleksi" class="form-control" required style="border-radius: 8px;">
+                            <option value="">-- Pilih Kriteria --</option>
+                            @foreach($kriterias as $k)
+                                <option value="{{ $k->nama }}">{{ $k->nama }} (Bobot: {{ $k->bobot }}%)</option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold text-muted small">Nilai / Predikat</label>
-                        <input type="text" name="nilai" class="form-control" required placeholder="Cth: 85 atau A">
+                    <div class="form-group">
+                        <label class="font-weight-600 text-muted small text-uppercase">Nilai</label>
+                        <input type="number" name="nilai" class="form-control" required style="border-radius: 8px;" placeholder="0 - 100" min="0" max="100" step="0.01">
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label font-weight-bold text-muted small">Status Kelulusan</label>
-                        <select name="status_lulus" class="form-select form-control" required>
+                    <div class="form-group">
+                        <label class="font-weight-600 text-muted small text-uppercase">Status Lulus Kriteria Ini</label>
+                        <select name="status_lulus" class="form-control" required style="border-radius: 8px;">
                             <option value="1">Lulus</option>
                             <option value="0">Tidak Lulus</option>
                         </select>
                     </div>
-
-                    <div class="mb-4">
-                        <label class="form-label font-weight-bold text-muted small">Keterangan Tambahan (Opsional)</label>
-                        <textarea name="keterangan" class="form-control" rows="2" placeholder="Cth: Kurang di bagian ketahanan fisik"></textarea>
+                    <div class="form-group">
+                        <label class="font-weight-600 text-muted small text-uppercase">Keterangan (Opsional)</label>
+                        <textarea name="keterangan" class="form-control" style="border-radius: 8px;" rows="3" placeholder="Catatan khusus..."></textarea>
                     </div>
-
-                    <button type="submit" class="btn btn-primary w-100 font-weight-bold py-2 rounded-pill">
-                        <i class="fas fa-save mr-2"></i> Simpan Nilai
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-block" style="border-radius: 8px; font-weight: 600;">Simpan Nilai</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Tabel Rekap Nilai -->
-    <div class="col-md-8 mb-4">
+    <!-- Riwayat Nilai Peserta -->
+    <div class="col-lg-7 col-md-12">
         <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
             <div class="card-header bg-white border-bottom pt-4 pb-3">
-                <h5 class="font-weight-bold m-0 text-dark"><i class="fas fa-clipboard-list text-primary mr-2"></i> Rekap Nilai Seleksi</h5>
+                <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">RIWAYAT NILAI PESERTA</h6>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover mb-0" style="vertical-align: middle;">
                         <thead class="bg-light">
                             <tr>
-                                <th class="border-bottom-0 py-3 text-uppercase text-muted pl-4" style="font-size: 0.8rem;">Jenis Tes</th>
-                                <th class="border-bottom-0 py-3 text-uppercase text-muted" style="font-size: 0.8rem;">Nilai</th>
-                                <th class="border-bottom-0 py-3 text-uppercase text-muted" style="font-size: 0.8rem;">Keterangan</th>
-                                <th class="border-bottom-0 py-3 text-uppercase text-muted" style="font-size: 0.8rem;">Status</th>
-                                <th class="border-bottom-0 py-3 text-uppercase text-muted text-center pr-4" style="font-size: 0.8rem; width: 80px;">Aksi</th>
+                                <th class="border-top-0 border-bottom-0 text-muted px-4" style="font-size: 0.85rem; font-weight: 600;">KRITERIA</th>
+                                <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600;">NILAI</th>
+                                <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600;">STATUS</th>
+                                <th class="border-top-0 border-bottom-0 text-muted text-right px-4" style="font-size: 0.85rem; font-weight: 600;">AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($pendaftaran->hasilSeleksi as $hasil)
                             <tr>
-                                <td class="pl-4 font-weight-bold text-dark">{{ $hasil->jenis_seleksi }}</td>
-                                <td>
-                                    <span class="badge bg-light text-dark border px-2 py-1 font-weight-bold" style="font-size: 0.9rem;">{{ $hasil->nilai }}</span>
-                                </td>
-                                <td><span class="text-muted small">{{ $hasil->keterangan ?: '-' }}</span></td>
-                                <td>
-                                    @if($hasil->status_lulus == 1)
-                                        <span class="text-success font-weight-bold small"><i class="fas fa-check-circle mr-1"></i> Lulus</span>
+                                <td class="px-4 py-3 align-middle font-weight-bold text-dark">{{ $hasil->jenis_seleksi }}</td>
+                                <td class="py-3 align-middle text-center font-weight-bold text-primary">{{ rtrim(rtrim(number_format($hasil->nilai, 14, '.', ''), '0'), '.') }}</td>
+                                <td class="py-3 align-middle text-center">
+                                    @if($hasil->status_lulus)
+                                        <span class="badge badge-success px-3 py-2 rounded-pill">Lulus</span>
                                     @else
-                                        <span class="text-danger font-weight-bold small"><i class="fas fa-times-circle mr-1"></i> Gagal</span>
+                                        <span class="badge badge-danger px-3 py-2 rounded-pill">Gagal</span>
                                     @endif
                                 </td>
-                                <td class="text-center pr-4">
-                                    <form action="{{ route('seleksi.destroy', $hasil->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data nilai ini?');">
+                                <td class="px-4 py-3 align-middle text-right">
+                                    <form action="{{ route('seleksi.destroy', $hasil->id) }}" method="POST" onsubmit="return confirm('Hapus nilai ini?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-light text-danger rounded-circle border" title="Hapus Nilai">
+                                        <button type="submit" class="btn btn-sm btn-light text-danger rounded-circle" title="Hapus">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </form>
@@ -104,34 +94,13 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
-                                    <div class="text-muted mb-2"><i class="fas fa-clipboard text-light" style="font-size: 3rem;"></i></div>
-                                    <h6 class="font-weight-bold text-muted">Belum ada nilai yang diinput</h6>
-                                    <p class="text-muted small mb-0">Silakan tambahkan nilai tes melalui form di samping.</p>
-                                </td>
+                                <td colspan="4" class="text-center py-5 text-muted">Belum ada nilai yang diinputkan untuk peserta ini.</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
-            @if($pendaftaran->hasilSeleksi->count() > 0)
-            <div class="card-footer bg-light border-top-0 p-4">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        @php
-                            $totalLulus = $pendaftaran->hasilSeleksi->where('status_lulus', 1)->count();
-                            $totalGagal = $pendaftaran->hasilSeleksi->where('status_lulus', 0)->count();
-                        @endphp
-                        <span class="text-muted small font-weight-bold">
-                            Total: {{ $pendaftaran->hasilSeleksi->count() }} Tes
-                            (<span class="text-success">{{ $totalLulus }} Lulus</span>, 
-                            <span class="text-danger">{{ $totalGagal }} Gagal</span>)
-                        </span>
-                    </div>
-                </div>
-            </div>
-            @endif
         </div>
     </div>
 </div>

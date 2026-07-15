@@ -531,23 +531,57 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('jadwal.index') }}" class="nav-link {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-calendar-alt"></i>
-                                    <p>Jadwal Kegiatan</p>
+                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>Data Pendaftar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-newspaper"></i>
-                                    <p>Berita & Informasi</p>
+                                <a href="{{ route('seleksi.index') }}" class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-clipboard-check"></i>
+                                    <p>Hasil Seleksi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('kriteria.index') }}" class="nav-link {{ request()->routeIs('kriteria.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>Set Seleksi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-info-circle"></i>
+                                    <p>Profil Website</p>
+                                </a>
+                            </li>
+                            
+                            <!-- <li class="nav-header">KONTEN KEGIATAN</li> -->
+                            <li class="nav-item">
+                                <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-bullhorn"></i>
+                                    <p>Kelola Pengumuman</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('galeri.index') }}" class="nav-link {{ request()->routeIs('galeri.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-images"></i>
-                                    <p>Galeri Foto</p>
+                                    <p>Galeri</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-newspaper"></i>
+                                    <p>Berita</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('jadwal.index') }}" class="nav-link {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-calendar-alt"></i>
+                                    <p>Jadwal</p>
+                                </a>
+                            </li>
+                            
+                            <!-- <li class="nav-header">SISTEM</li> -->
                             <li class="nav-item">
                                 <a href="{{ route('laporan.index') }}" class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-chart-bar"></i>
@@ -558,32 +592,58 @@
 
                         @if(auth()->user()->role === 'pengurus')
                             <li class="nav-item">
-                                <a href="{{ route('pendaftaran.index') }}" class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-list"></i>
-                                    <p>Kelola Pendaftaran</p>
+                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Data Pendaftar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.pendaftaran.verifikasi') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.verifikasi') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-file-signature"></i>
+                                    <p>Verifikasi Berkas</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('seleksi.index') }}" class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-check-circle"></i>
-                                    <p>Proses Seleksi</p>
+                                    <i class="nav-icon fas fa-clipboard-check"></i>
+                                    <p>Input Hasil Seleksi</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-bullhorn"></i>
+                                    <p>Pengumuman Hasil</p>
+                                </a>
+                            </li>
+
                         @endif
 
                         @if(auth()->user()->role === 'calon_anggota')
                             <li class="nav-item">
                                 <a href="{{ route('pendaftaran.index') }}" class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-file-alt"></i>
-                                    <p>Form Pendaftaran</p>
+                                    <p>Formulir</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('notifikasi.index') }}" class="nav-link {{ request()->routeIs('notifikasi.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-bell"></i>
-                                    <p>Notifikasi</p>
+                                <a href="{{ route('status-seleksi.index') }}" class="nav-link {{ request()->routeIs('status-seleksi.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-check-circle"></i>
+                                    <p>Status Seleksi</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('data-pendaftar.index') }}" class="nav-link {{ request()->routeIs('data-pendaftar.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Data Pendaftar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pengumuman-seleksi.index') }}" class="nav-link {{ request()->routeIs('pengumuman-seleksi.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-bullhorn"></i>
+                                    <p>Pengumuman</p>
+                                </a>
+                            </li>
+
                         @endif
 
                         <li class="nav-item mt-4">

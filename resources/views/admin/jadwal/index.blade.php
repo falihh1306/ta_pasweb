@@ -1,273 +1,212 @@
 @extends('layouts.admin')
 
-@section('title', 'Jadwal Kegiatan')
-
-@section('extra-css')
-<style>
-    .table-custom {
-        border-collapse: separate;
-        border-spacing: 0 0.5rem;
-    }
-    .table-custom tr {
-        background-color: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-        border-radius: 0.5rem;
-        transition: transform 0.2s;
-    }
-    .table-custom tr:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .table-custom td, .table-custom th {
-        border: none;
-        padding: 1rem 1.2rem;
-        vertical-align: middle;
-    }
-    .table-custom th {
-        background: transparent;
-        font-weight: 600;
-        color: #6b7280;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    .table-custom td:first-child, .table-custom th:first-child {
-        border-top-left-radius: 0.5rem;
-        border-bottom-left-radius: 0.5rem;
-    }
-    .table-custom td:last-child, .table-custom th:last-child {
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-    }
-    
-    .icon-box {
-        width: 40px;
-        height: 40px;
-        border-radius: 0.5rem;
-        background: rgba(59, 130, 246, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #3b82f6;
-        margin-right: 1rem;
-    }
-
-    body.dark-mode .table-custom tr {
-        background-color: #1f2937;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    body.dark-mode .table-custom th {
-        color: #9ca3af;
-    }
-    body.dark-mode .table-custom td {
-        color: #e5e7eb;
-    }
-    body.dark-mode .icon-box {
-        background: #374151;
-        color: #60a5fa;
-    }
-    body.dark-mode .modal-content {
-        background-color: #1f2937;
-        color: #f9fafb;
-        border-color: #374151;
-    }
-    body.dark-mode .modal-header, body.dark-mode .modal-footer {
-        border-color: #374151;
-    }
-    body.dark-mode .form-control {
-        background-color: #374151;
-        border-color: #4b5563;
-        color: #f9fafb;
-    }
-    body.dark-mode .form-control:focus {
-        border-color: #3b82f6;
-        background-color: #374151;
-        color: #f9fafb;
-    }
-    body.dark-mode .close {
-        color: #f9fafb;
-    }
-</style>
-@endsection
+@section('title', 'Kelola Jadwal Kegiatan - Paskibra')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+<div class="mb-4 mt-2 d-flex justify-content-between align-items-center">
     <div>
-        <h3 class="font-weight-bold" style="letter-spacing: -0.5px; margin-bottom: 0.2rem;">Jadwal Kegiatan</h3>
-        <p class="text-muted mb-0" style="font-size: 0.95rem;">Manajemen agenda dan jadwal latihan rutin Paskibra.</p>
+        <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Jadwal Kegiatan</h3>
+        <p class="text-muted" style="font-size: 0.95rem;">Kelola kalender dan jadwal kegiatan Paskibra.</p>
     </div>
-    <div>
-        <button class="btn px-4 py-2" style="background-color: #3b82f6; color: white; border-radius: 50rem; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); font-weight: 600;" data-toggle="modal" data-target="#modal-add">
-            <i class="fas fa-plus mr-2"></i> Tambah Jadwal
+    <button type="button" class="btn btn-primary shadow-sm px-4" data-toggle="modal" data-target="#addJadwalModal" style="border-radius: 10px; font-weight: 600;">
+        <i class="fas fa-plus mr-2"></i> Tambah Jadwal
+    </button>
+</div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+        <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
         </button>
     </div>
-</div>
+@endif
 
-<div class="table-responsive">
-    <table class="table table-custom">
-        <thead>
-            <tr>
-                <th>Nama Kegiatan</th>
-                <th>Tanggal & Waktu</th>
-                <th>Tempat</th>
-                <th class="text-right">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($jadwals as $jadwal)
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <div class="icon-box">
-                            <i class="far fa-calendar-alt text-lg"></i>
-                        </div>
-                        <div>
-                            <span class="d-block font-weight-bold">{{ $jadwal->nama_kegiatan }}</span>
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+        <i class="fas fa-exclamation-triangle mr-2"></i> <strong>Gagal menyimpan jadwal!</strong>
+        <ul class="mb-0 mt-1 pl-4">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+<div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem; overflow: hidden;">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="border-top-0 border-bottom-0 text-muted px-4" style="font-size: 0.85rem; font-weight: 600; width: 5%;">NO</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 35%;">NAMA KEGIATAN</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 20%;">TANGGAL & WAKTU</th>
+                        <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600; width: 25%;">TEMPAT</th>
+                        <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600; width: 15%;">AKSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($jadwals as $index => $jadwal)
+                    <tr>
+                        <td class="px-4 text-muted font-weight-bold">{{ $jadwals->firstItem() + $index }}</td>
+                        <td>
+                            <div class="d-flex align-items-center py-2">
+                                <div class="rounded-circle mr-3 bg-primary-soft d-flex align-items-center justify-content-center text-primary" style="width: 45px; height: 45px; background-color: #e0e7ff;">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 font-weight-bold text-dark">{{ $jadwal->nama_kegiatan }}</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-dark font-weight-bold" style="font-size: 0.95rem;">
+                                {{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->translatedFormat('l, d M Y') }}
+                            </div>
+                            <small class="text-muted"><i class="far fa-clock mr-1"></i> {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} WIB</small>
+                        </td>
+                        <td>
+                            <div class="text-muted"><i class="fas fa-map-marker-alt text-danger mr-1"></i> {{ Str::limit($jadwal->tempat, 40) }}</div>
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-sm btn-light text-primary mr-1" data-toggle="modal" data-target="#editJadwalModal{{ $jadwal->id }}" title="Edit" style="border-radius: 8px;">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-light text-danger" data-toggle="tooltip" title="Hapus" style="border-radius: 8px;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- Modal Edit Jadwal -->
+                    <div class="modal fade" id="editJadwalModal{{ $jadwal->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+                                <div class="modal-header bg-light border-0 py-3" style="border-radius: 1rem 1rem 0 0;">
+                                    <h5 class="modal-title font-weight-bold text-dark">Edit Jadwal Kegiatan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('jadwal.update', $jadwal->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body px-4 py-4 text-left">
+                                        <div class="form-group mb-4">
+                                            <label class="font-weight-600 text-muted small text-uppercase">Nama Kegiatan <span class="text-danger">*</span></label>
+                                            <input type="text" name="nama_kegiatan" class="form-control" value="{{ $jadwal->nama_kegiatan }}" required style="border-radius: 0.5rem;" placeholder="Misal: Latihan Rutin PBB">
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-4">
+                                                    <label class="font-weight-600 text-muted small text-uppercase">Tanggal <span class="text-danger">*</span></label>
+                                                    <input type="date" name="tanggal_kegiatan" class="form-control" value="{{ $jadwal->tanggal_kegiatan }}" required style="border-radius: 0.5rem;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-4">
+                                                    <label class="font-weight-600 text-muted small text-uppercase">Waktu <span class="text-danger">*</span></label>
+                                                    <input type="time" name="waktu" class="form-control" value="{{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }}" required style="border-radius: 0.5rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <label class="font-weight-600 text-muted small text-uppercase">Tempat Pelaksanaan <span class="text-danger">*</span></label>
+                                            <input type="text" name="tempat" class="form-control" value="{{ $jadwal->tempat }}" required style="border-radius: 0.5rem;" placeholder="Misal: Lapangan Utama SMA">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0 bg-light py-3" style="border-radius: 0 0 1rem 1rem;">
+                                        <button type="button" class="btn btn-secondary font-weight-bold px-4" data-dismiss="modal" style="border-radius: 0.5rem;">Batal</button>
+                                        <button type="submit" class="btn btn-primary font-weight-bold px-4" style="border-radius: 0.5rem;"><i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </td>
-                <td>
-                    <span class="d-block text-dark font-weight-medium">{{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->format('d M Y') }}</span>
-                    <span class="text-muted" style="font-size: 0.85rem;"><i class="far fa-clock mr-1"></i> {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} WIB</span>
-                </td>
-                <td>
-                    <span class="text-muted"><i class="fas fa-map-marker-alt mr-1"></i> {{ $jadwal->tempat }}</span>
-                </td>
-                <td class="text-right">
-                    <button class="btn btn-sm btn-soft btn-soft-primary mr-1" onclick="editJadwal({{ $jadwal->id }}, '{{ addslashes($jadwal->nama_kegiatan) }}', '{{ $jadwal->tanggal_kegiatan }}', '{{ $jadwal->waktu }}', '{{ addslashes($jadwal->tempat) }}')">
-                        <i class="fas fa-pen"></i>
-                    </button>
-                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-soft" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="4" class="text-center py-4 text-muted">Belum ada jadwal kegiatan yang dibuat.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-5">
+                            <div class="text-muted mb-3"><i class="far fa-calendar-times fa-3x" style="opacity: 0.4;"></i></div>
+                            <h6 class="font-weight-bold text-dark">Belum ada jadwal kegiatan</h6>
+                            <p class="text-muted mb-3">Jadwalkan kegiatan pertama Paskibra sekarang.</p>
+                            <button type="button" class="btn btn-sm btn-primary px-4" data-toggle="modal" data-target="#addJadwalModal" style="border-radius: 8px;"><i class="fas fa-plus mr-2"></i>Tambah Jadwal</button>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div class="d-flex justify-content-center mt-4">
-    {{ $jadwals->links() }}
-</div>
+@if($jadwals->hasPages())
+    <div class="d-flex justify-content-center">
+        {{ $jadwals->links() }}
+    </div>
+@endif
 
-<!-- Modal Tambah -->
-<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Modal Tambah Jadwal -->
+<div class="modal fade" id="addJadwalModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="border-radius: 1rem; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
+            <div class="modal-header bg-light border-0 py-3" style="border-radius: 1rem 1rem 0 0;">
+                <h5 class="modal-title font-weight-bold text-dark">Tambah Jadwal Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form action="{{ route('jadwal.store') }}" method="POST">
                 @csrf
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold">Tambah Jadwal Baru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Nama Kegiatan</label>
-                        <input type="text" name="nama_kegiatan" class="form-control" style="border-radius: 0.5rem;" required>
+                <div class="modal-body px-4 py-4">
+                    <div class="form-group mb-4">
+                        <label class="font-weight-600 text-muted small text-uppercase">Nama Kegiatan <span class="text-danger">*</span></label>
+                        <input type="text" name="nama_kegiatan" class="form-control" required style="border-radius: 0.5rem;" placeholder="Misal: Latihan Rutin PBB">
                     </div>
+                    
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold">Tanggal</label>
-                            <input type="date" name="tanggal_kegiatan" class="form-control" style="border-radius: 0.5rem;" required>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-600 text-muted small text-uppercase">Tanggal <span class="text-danger">*</span></label>
+                                <input type="date" name="tanggal_kegiatan" class="form-control" required style="border-radius: 0.5rem;">
+                            </div>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold">Waktu</label>
-                            <input type="time" name="waktu" class="form-control" style="border-radius: 0.5rem;" required>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label class="font-weight-600 text-muted small text-uppercase">Waktu <span class="text-danger">*</span></label>
+                                <input type="time" name="waktu" class="form-control" required style="border-radius: 0.5rem;">
+                            </div>
                         </div>
                     </div>
+
                     <div class="form-group mb-0">
-                        <label class="font-weight-bold">Tempat</label>
-                        <input type="text" name="tempat" class="form-control" style="border-radius: 0.5rem;" required>
+                        <label class="font-weight-600 text-muted small text-uppercase">Tempat Pelaksanaan <span class="text-danger">*</span></label>
+                        <input type="text" name="tempat" class="form-control" required style="border-radius: 0.5rem;" placeholder="Misal: Lapangan Utama SMA">
                     </div>
                 </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" style="border-radius: 0.5rem;" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn px-4" style="background-color: #3b82f6; color: white; border-radius: 0.5rem; font-weight: 600;">Simpan</button>
+                <div class="modal-footer border-0 bg-light py-3" style="border-radius: 0 0 1rem 1rem;">
+                    <button type="button" class="btn btn-secondary font-weight-bold px-4" data-dismiss="modal" style="border-radius: 0.5rem;">Batal</button>
+                    <button type="submit" class="btn btn-primary font-weight-bold px-4" style="border-radius: 0.5rem;"><i class="fas fa-save mr-2"></i> Simpan Jadwal</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Edit -->
-<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="border-radius: 1rem; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <form id="edit-form" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title font-weight-bold">Edit Jadwal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Nama Kegiatan</label>
-                        <input type="text" name="nama_kegiatan" id="edit-nama" class="form-control" style="border-radius: 0.5rem;" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold">Tanggal</label>
-                            <input type="date" name="tanggal_kegiatan" id="edit-tanggal" class="form-control" style="border-radius: 0.5rem;" required>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold">Waktu</label>
-                            <input type="time" name="waktu" id="edit-waktu" class="form-control" style="border-radius: 0.5rem;" required>
-                        </div>
-                    </div>
-                    <div class="form-group mb-0">
-                        <label class="font-weight-bold">Tempat</label>
-                        <input type="text" name="tempat" id="edit-tempat" class="form-control" style="border-radius: 0.5rem;" required>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" style="border-radius: 0.5rem;" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn px-4" style="background-color: #3b82f6; color: white; border-radius: 0.5rem; font-weight: 600;">Perbarui</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endsection
-
-@section('extra-js')
+@push('scripts')
 <script>
-    function editJadwal(id, nama, tanggal, waktu, tempat) {
-        document.getElementById('edit-form').action = '/jadwal/' + id;
-        document.getElementById('edit-nama').value = nama;
-        document.getElementById('edit-tanggal').value = tanggal;
-        
-        // Extract only HH:MM from time string if it contains seconds
-        if (waktu.length > 5) {
-            waktu = waktu.substring(0, 5);
-        }
-        document.getElementById('edit-waktu').value = waktu;
-        
-        document.getElementById('edit-tempat').value = tempat;
-        
-        $('#modal-edit').modal('show');
-    }
-
-    // Display validation errors if any
-    @if($errors->any())
-        let errorMsg = "";
-        @foreach ($errors->all() as $error)
-            errorMsg += "{{ $error }}\n";
-        @endforeach
-        alert(errorMsg);
-    @endif
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
+@endpush
 @endsection
