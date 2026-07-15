@@ -36,6 +36,25 @@ class PendaftaranController extends Controller
         return view('admin.pendaftaran.show', compact('pendaftaran'));
     }
 
+    public function verifikasi(Request $request)
+    {
+        $query = FormulirPendaftaran::with('user')->orderBy('created_at', 'desc');
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_panggilan', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($uq) use ($search) {
+                      $uq->where('nama_lengkap', 'like', "%{$search}%")
+                         ->orWhere('nisn', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $pendaftarans = $query->paginate(10);
+        return view('admin.pendaftaran.verifikasi', compact('pendaftarans'));
+    }
+
     public function updateStatus(Request $request, $id)
     {
         $request->validate([

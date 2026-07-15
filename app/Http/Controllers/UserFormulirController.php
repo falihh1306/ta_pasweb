@@ -49,6 +49,12 @@ class UserFormulirController extends Controller
             'upload_surat_izin' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'upload_skd' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'upload_kk' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'nama_ayah' => 'required|string|max:255',
+            'pekerjaan_ayah' => 'required|string|max:255',
+            'nama_ibu' => 'required|string|max:255',
+            'pekerjaan_ibu' => 'required|string|max:255',
+            'nama_wali' => 'nullable|string|max:255',
+            'no_telp_ortu' => 'required|string|max:20',
         ]);
 
         // Simpan File
@@ -79,6 +85,12 @@ class UserFormulirController extends Controller
             'upload_surat_izin' => $surat_izin,
             'upload_skd' => $skd,
             'upload_kk' => $kk,
+            'nama_ayah' => $validated['nama_ayah'],
+            'pekerjaan_ayah' => $validated['pekerjaan_ayah'],
+            'nama_ibu' => $validated['nama_ibu'],
+            'pekerjaan_ibu' => $validated['pekerjaan_ibu'],
+            'nama_wali' => $validated['nama_wali'] ?? null,
+            'no_telp_ortu' => $validated['no_telp_ortu'],
             'status_pendaftaran' => 'pending',
         ]);
 

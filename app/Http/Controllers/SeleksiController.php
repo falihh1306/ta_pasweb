@@ -10,6 +10,9 @@ class SeleksiController extends Controller
 {
     public function index(Request $request)
     {
+        // Ambil data kriteria dari database
+        $kriterias = \App\Models\Kriteria::orderBy('id', 'asc')->get();
+
         // Hanya ambil yang sudah disetujui
         $query = FormulirPendaftaran::with('user', 'hasilSeleksi')
                     ->where('status_pendaftaran', 'approved')
@@ -27,7 +30,29 @@ class SeleksiController extends Controller
         }
 
         $pesertas = $query->paginate(10);
-        return view('admin.seleksi.index', compact('pesertas'));
+        
+        $pesertas->getCollection()->transform(function($p) use ($kriterias) {
+            $p->nilai_kriteria = [];
+            $nilai_akhir = 0;
+
+            foreach ($kriterias as $k) {
+                // Ambil nilai berdasarkan nama kriteria
+                $hasil = $p->hasilSeleksi->where('jenis_seleksi', $k->nama)->first();
+                $nilai = floatval($hasil->nilai ?? 0);
+                
+                // Simpan ke array untuk ditampilkan di view
+                $p->nilai_kriteria[$k->id] = $nilai;
+
+                // Hitung total dengan bobot
+                $nilai_akhir += ($nilai * ($k->bobot / 100));
+            }
+            
+            $p->nilai_akhir = $nilai_akhir;
+            
+            return $p;
+        });
+
+        return view('admin.seleksi.index', compact('pesertas', 'kriterias'));
     }
 
     public function show($id)
@@ -36,7 +61,9 @@ class SeleksiController extends Controller
             $q->orderBy('created_at', 'desc');
         }])->findOrFail($id);
         
-        return view('admin.seleksi.show', compact('pendaftaran'));
+        $kriterias = \App\Models\Kriteria::orderBy('id', 'asc')->get();
+
+        return view('admin.seleksi.show', compact('pendaftaran', 'kriterias'));
     }
 
     public function store(Request $request, $id)

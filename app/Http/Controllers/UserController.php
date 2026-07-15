@@ -15,7 +15,7 @@ class UserController extends Controller
         // Using pagination or just all depending on expected volume.
         // For a beautiful UI, we'll get all users ordered by creation date
         $users = User::latest()->get();
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     public function store(Request $request)
