@@ -40,6 +40,12 @@ class FormulirPendaftaran extends Model
         'upload_surat_izin',
         'upload_skd',
         'upload_kk',
+        'nama_ayah',
+        'pekerjaan_ayah',
+        'nama_ibu',
+        'pekerjaan_ibu',
+        'nama_wali',
+        'no_telp_ortu',
         'status_pendaftaran',
     ];
 
